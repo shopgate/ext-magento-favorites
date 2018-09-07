@@ -6,9 +6,7 @@ const ERROR_CODE = 'EINTERNAL'
  * Please consult the magento swagger definition for possible error
  * outputs and use this error as a fallback to all unknown cases.
  *
- * @extends Error
- * @param {string} [message=An internal error occurred.]
- * @default An internal error occurred.
+ * @param {string} message - error text message received from Magento
  */
 class MagentoEndpointError extends Error {
   constructor (message) {

@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "id": "@shopgate/magento-favorites",
+  "id": "@shopgate/ext-magento-favorites",
   "configuration": {
     "enableCartCoupons" : {
       "type" : "static",
