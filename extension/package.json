@@ -5,7 +5,7 @@
   "scripts": {
     "lint": "./node_modules/.bin/eslint --ignore-path ../.gitignore --ext .js --ext .jsx .",
     "test": "./node_modules/.bin/_mocha --use_strict --recursive ./test/unit",
-    "cover": "./node_modules/.bin/nyc ./node_modules/.bin/_mocha --recursive ./test/unit"
+    "cover": "./node_modules/.bin/nyc npm test && ./node_modules/.bin/nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
