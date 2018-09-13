@@ -1,6 +1,6 @@
 {
   "name": "@shopgate/ext-magento-favorites",
-  "version": "1.0.7-beta.10",
+  "version": "0.1.0",
   "description": "prototype",
   "scripts": {
     "lint": "./node_modules/.bin/eslint --ignore-path ../.gitignore --ext .js --ext .jsx .",
