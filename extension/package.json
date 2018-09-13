@@ -3,7 +3,7 @@
   "version": "1.0.7-beta.10",
   "description": "prototype",
   "scripts": {
-    "lint": "./node_modules/.bin/eslint --ignore-path .gitignore --ext .js --ext .jsx .",
+    "lint": "./node_modules/.bin/eslint --ignore-path ../.gitignore --ext .js --ext .jsx .",
     "test": "./node_modules/.bin/_mocha --use_strict --recursive ./test/unit",
     "cover": "./node_modules/.bin/nyc ./node_modules/.bin/_mocha --recursive ./test/unit"
   },
@@ -22,6 +22,11 @@
   "devDependencies": {
     "coveralls": "^3.0.2",
     "eslint": "^5.5.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^7.0.1",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
     "mocha": "^5.2.0",
     "mochawesome": "3.0.2",
     "nock": "^9.0.13",
