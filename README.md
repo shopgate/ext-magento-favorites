@@ -23,6 +23,6 @@ apps and mobile websites for the iPhone, iPad, Android smartphones and tablets.
 
 ## License
 
-Shopgate Cloud - Extension Magento Favorites is available under the Apache License, Version 2.0.
+Shopgate Connect - Extension Magento Favorites is available under the Apache License, Version 2.0.
 
 See the [LICENSE](./LICENSE.md) file for more information.
