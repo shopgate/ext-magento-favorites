@@ -1,8 +1,8 @@
-# Shopgate Cloud - Extension Magento Favorites
+# Shopgate Connect - Extension Magento Favorites
 [![GitHub license](http://dmlc.github.io/img/apache2.svg)](LICENSE.md)
 [![Build Status](https://travis-ci.org/shopgate/ext-magento-favorites.svg?branch=master)](https://travis-ci.org/shopgate/ext-magento-favorites)
 
-This BigCommerce extension will request categories and products directly via BigCommerce Api.
+This Magento extension will handle the synchronisation of favourite lists between Magento and Shopgate Connect.
 
 ## Changelog
 
