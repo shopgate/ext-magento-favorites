@@ -3,7 +3,7 @@
   "version": "1.0.7-beta.10",
   "description": "prototype",
   "scripts": {
-    "lint": "./node_modules/.bin/eslint --ignore-path .gitignore --ignore-path .eslintignore  --ext .js --ext .jsx .",
+    "lint": "./node_modules/.bin/eslint --ignore-path .gitignore --ext .js --ext .jsx .",
     "test": "./node_modules/.bin/_mocha --use_strict --recursive ./test/unit",
     "cover": "./node_modules/.bin/nyc ./node_modules/.bin/_mocha --recursive ./test/unit"
   },

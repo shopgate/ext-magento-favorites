@@ -13,7 +13,6 @@ matrix:
     env: TYPE=UNIT_CODESTYLE_DEPENDENCY
     script:
     - cd extension
-    - npm run test
     - npm run cover
     - npm run lint
     - npm audit
