@@ -22,7 +22,7 @@
       {
         "type": "extension",
         "id": "@shopgate/ext-magento-favorites",
-        "path": "@shopgate/favorites/getFavoriteProductIds.js",
+        "path": "@shopgate/ext-magento-favorites/favorites/getFavoriteProductIds.js",
         "input": [
           {"key": "token", "id": "140"}
         ],

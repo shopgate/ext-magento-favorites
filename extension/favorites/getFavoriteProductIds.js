@@ -15,8 +15,7 @@ function getFavoriteProductsIdsFromStorage (context, token) {
  * @param {string} token
  */
 async function getFavoriteProductsIdsFromMagento (endpointUrl, context, token) {
-  //await MagentoRequest.send(endpointUrl, context, token, 'Request to Magento: getFavorites')
-  return ['13']
+  await MagentoRequest.send(endpointUrl, context, token, 'Request to Magento: getFavorites')
 }
 
 /**
@@ -25,9 +24,8 @@ async function getFavoriteProductsIdsFromMagento (endpointUrl, context, token) {
  * @returns {Promise<{productIds: number[]}>}
  */
 module.exports = async (context, input) => {
-  console.log('TEST')
   let productIds = []
-  const endpointUrl = `${context.config.magentoUrl}/favorites/me`
+  const endpointUrl = `${context.config.magentoUrl}/wishlists`
 
   // Guests will receive their favs from the app storage, logged in users directly from the mage endpoint
   if (!context.meta.userId) {
