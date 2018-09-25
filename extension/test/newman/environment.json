@@ -1,0 +1,21 @@
+{
+  "id": "f06b2053-282b-4e58-9a24-3e12556fd3b7",
+  "name": "Magento Connect",
+  "values": [
+    {
+      "key": "username",
+      "value": "ronny.lindner@shopgate.com",
+      "description": "",
+      "enabled": true
+    },
+    {
+      "key": "password",
+      "value": "123456kill",
+      "description": "",
+      "enabled": true
+    }
+  ],
+  "_postman_variable_scope": "environment",
+  "_postman_exported_at": "2018-09-25T15:55:35.738Z",
+  "_postman_exported_using": "Postman/6.2.5"
+}
