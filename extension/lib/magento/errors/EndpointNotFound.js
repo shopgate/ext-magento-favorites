@@ -8,7 +8,7 @@ const ERROR_CODE = 'EMAGENTOENDPOINTNOTFOUND'
  * @param {string} [message=Requested endpoint url could not be found or is not implemented.]
  * @default Requested endpoint url could not be found or is not implemented.
  */
-class MagentoEndpointNotFound extends Error {
+class EndpointNotFound extends Error {
   constructor (message) {
     super()
     this.code = ERROR_CODE
@@ -16,4 +16,4 @@ class MagentoEndpointNotFound extends Error {
   }
 }
 
-module.exports = MagentoEndpointNotFound
+module.exports = EndpointNotFound
