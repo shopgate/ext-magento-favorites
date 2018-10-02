@@ -1,23 +1,25 @@
-const MagentoEndpointNotFoundError = require('./../models/Errors/MagentoEndpointNotFoundError')
-const MagentoEndpointNotAllowedError = require('./../models/Errors/MagentoEndpointNotAllowedError')
-const MagentoEndpointError = require('./../models/Errors/MagentoEndpointError')
-const UnauthorizedError = require('./../models/Errors/UnauthorizedError')
+const MagentoEndpointNotFoundError = require('./errors/EndpointNotFound')
+const MagentoEndpointNotAllowedError = require('./errors/EndpointNotAllowed')
+const MagentoEndpointError = require('./errors/Endpoint')
+const UnauthorizedError = require('../shopgate/errors/UnauthorizedError')
 const util = require('util')
 
 /**
  * All needed methods to fire requests to magento
  */
-class MagentoRequest {
+class Request {
   /**
    * @param {string} url
    * @param {Object} context
    * @param {string} token
-   * @param message
+   * @param {string} message
+   * @param {string} method - GET, POST, DELETE (don't use PUT with Magento)
    * @returns {Object}
    */
-  static async send (url, context, token, message = 'Request to Magento') {
+  static async send (url, context, token, method = 'GET', message = 'Request to Magento: getWishlists') {
     const options = {
-      url: url,
+      url,
+      method,
       json: true,
       rejectUnauthorized: !context.config.allowSelfSignedCertificate,
       auth: {
@@ -25,7 +27,7 @@ class MagentoRequest {
       }
     }
 
-    const tracedRequest = context.tracedRequest('magento-user-extension:MagentoRequest', {log: true})
+    const tracedRequest = context.tracedRequest('magento-favorite-extension:MagentoRequest', { log: true })
     this.context = context
 
     return new Promise((resolve, reject) => {
@@ -49,7 +51,7 @@ class MagentoRequest {
           } else if (response.statusCode === 405) {
             this.log(response.statusCode, util.inspect(options, true, 5), new Date(), 'MagentoEndpointNotAllowedError')
             reject(new MagentoEndpointNotAllowedError())
-          } else if (response.body.messages && response.body.messages.error) {
+          } else if (response.body && response.body.messages && response.body.messages.error) {
             this.log(response.statusCode, util.inspect(options, true, 5), new Date(), 'MagentoEndpointError')
             reject(new MagentoEndpointError())
           } else { // This else is currently important, cause there is a bug within the tracedRequest which will crash the app otherwise
@@ -77,4 +79,4 @@ class MagentoRequest {
   }
 }
 
-module.exports = MagentoRequest
+module.exports = Request

@@ -22,7 +22,7 @@
       {
         "type": "extension",
         "id": "@shopgate/ext-magento-favorites",
-        "path": "@shopgate/ext-magento-favorites/favorites/getFavoriteProductIds.js",
+        "path": "@shopgate/ext-magento-favorites/lib/magento/customer/getItems.js",
         "input": [
           {"key": "token", "id": "140"}
         ],
@@ -68,15 +68,6 @@
         ],
         "output": [
           {"key": "products", "id": "130"}
-        ]
-      },
-      {
-        "type": "pipeline",
-        "id": "shopgate.general.getToken.v1",
-        "trusted": true,
-        "input": [],
-        "output": [
-          {"key": "token", "id": "140"}
         ]
       },
       {
