@@ -1,6 +1,6 @@
 .DS_Store
-.nyc_output/
-build
+extension/.nyc_output/
+extension/build
 extension/coverage
 extension/node_modules
 .idea/
