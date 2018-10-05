@@ -34,7 +34,6 @@ class Request {
    * @param {Object | boolean} data
    * @returns {Object}
    *
-   * @throws FieldValidationError
    * @throws UnauthorizedError
    * @throws MagentoEndpointNotFoundError
    * @throws MagentoEndpointNotAllowedError
@@ -54,7 +53,7 @@ class Request {
       this.log(response, util.inspect(options, true, 5), timeStart, message)
       return response.body
     } catch (error) {
-      this.handleError(error, options, timeStart, message)
+      this.handleError(error, options, timeStart)
     }
   }
 
@@ -62,17 +61,15 @@ class Request {
    * @param {Object} error
    * @param {Object} options
    * @param {Date} timeStart
-   * @param {string} message
    *
-   * @throws FieldValidationError
    * @throws UnauthorizedError
    * @throws MagentoEndpointNotFoundError
    * @throws MagentoEndpointNotAllowedError
    * @throws MagentoEndpointError
    * @throws UnknownError
    */
-  handleError (error, options, timeStart, message) {
-    const statusCode = _.get('error.response.statusCode')
+  handleError (error, options, timeStart) {
+    const statusCode = _.get(error, 'response.statusCode')
     if (statusCode && [401, 403, 404, 405].includes(statusCode)) {
       if (statusCode === 401 || statusCode === 403) {
         this.log(error.response, util.inspect(options, true, 5), timeStart, 'UnauthorizedError')
@@ -87,10 +84,9 @@ class Request {
     } else if (error.error && error.response) {
       this.log(error.response, util.inspect(options, true, 5), timeStart, 'MagentoEndpointError')
       throw new MagentoEndpointError()
-    } else {
-      this.log(_.get('error.response', {}), util.inspect(options, true, 5), timeStart, _.get('error.message', ''))
-      throw new UnknownError()
     }
+    this.log(_.get(error, 'response', {}), util.inspect(options, true, 5), timeStart, _.get(error, 'message', ''))
+    throw new UnknownError()
   }
 
   /**
@@ -103,12 +99,12 @@ class Request {
     this.logger.debug(
       {
         duration: new Date() - timerStart,
-        statusCode: _.get('response.statusCode', 0),
+        statusCode: _.get(response, 'statusCode', 0),
         request,
         response:
           {
-            headers: _.get('response.headers', {}),
-            body: _.get('response.body', {})
+            headers: _.get(response, 'headers', {}),
+            body: _.get(response, 'body', {})
           }
       },
       message
