@@ -2,76 +2,113 @@ const MagentoEndpointNotFoundError = require('./errors/EndpointNotFound')
 const MagentoEndpointNotAllowedError = require('./errors/EndpointNotAllowed')
 const MagentoEndpointError = require('./errors/Endpoint')
 const UnauthorizedError = require('../shopgate/errors/UnauthorizedError')
+const UnknownError = require('../shopgate/errors/UnknownError')
 const util = require('util')
+const _ = {
+  get: require('lodash/get')
+}
 
 /**
  * All needed methods to fire requests to magento
  */
 class Request {
   /**
-   * @param {string} url
-   * @param {Object} context
+   * @param {StepContext} context
    * @param {string} token
-   * @param {string} message
-   * @param {string} method - GET, POST, DELETE (don't use PUT with Magento)
-   * @returns {Object}
    */
-  static async send (url, context, token, method = 'GET', message = 'Request to Magento: getWishlists') {
-    const options = {
-      url,
-      method,
-      json: true,
-      rejectUnauthorized: !context.config.allowSelfSignedCertificate,
+  constructor (context, token) {
+    this.logger = context.log
+    this.request = context.tracedRequest('magento-favorites-extension:request', { log: true }).defaults({
       auth: {
         bearer: token
-      }
-    }
-
-    const tracedRequest = context.tracedRequest('magento-favorite-extension:MagentoRequest', { log: true })
-    this.context = context
-
-    return new Promise((resolve, reject) => {
-      tracedRequest(
-        options,
-        (error, response) => {
-          this.response = null
-          if (response) {
-            this.response = response
-          }
-
-          if (error) {
-            this.log(null, util.inspect(options, true, 5), new Date(), message)
-            reject(new Error(error))
-          } else if (response.statusCode === 401 || response.statusCode === 403) {
-            this.log(response.statusCode, util.inspect(options, true, 5), new Date(), 'UnauthorizedError')
-            reject(new UnauthorizedError())
-          } else if (response.statusCode === 404) {
-            this.log(response.statusCode, util.inspect(options, true, 5), new Date(), 'MagentoEndpointNotFoundError')
-            reject(new MagentoEndpointNotFoundError())
-          } else if (response.statusCode === 405) {
-            this.log(response.statusCode, util.inspect(options, true, 5), new Date(), 'MagentoEndpointNotAllowedError')
-            reject(new MagentoEndpointNotAllowedError())
-          } else if (response.body && response.body.messages && response.body.messages.error) {
-            this.log(response.statusCode, util.inspect(options, true, 5), new Date(), 'MagentoEndpointError')
-            reject(new MagentoEndpointError())
-          } else { // This else is currently important, cause there is a bug within the tracedRequest which will crash the app otherwise
-            this.log(response.statusCode, util.inspect(options, true, 5), new Date(), message)
-            resolve(response.body)
-          }
-        })
+      },
+      rejectUnauthorized: !context.config.allowSelfSignedCertificate,
+      resolveWithFullResponse: true
     })
   }
 
-  static log (statusCode, request, timerStart, message) {
-    this.context.log.debug(
+  /**
+   * @param {string} url
+   * @param {string} message
+   * @param {string} method
+   * @param {Object | boolean} data
+   * @returns {Object}
+   *
+   * @throws FieldValidationError
+   * @throws UnauthorizedError
+   * @throws MagentoEndpointNotFoundError
+   * @throws MagentoEndpointNotAllowedError
+   * @throws MagentoEndpointError
+   * @throws UnknownError
+   */
+  async send (url, message = 'Request to Magento', method = 'GET', data = true) {
+    const options = {
+      url: url,
+      method: method,
+      json: data
+    }
+    const timeStart = new Date()
+
+    try {
+      const response = await this.request(options)
+      this.log(response, util.inspect(options, true, 5), timeStart, message)
+      return response.body
+    } catch (error) {
+      this.handleError(error, options, timeStart, message)
+    }
+  }
+
+  /**
+   * @param {Object} error
+   * @param {Object} options
+   * @param {Date} timeStart
+   * @param {string} message
+   *
+   * @throws FieldValidationError
+   * @throws UnauthorizedError
+   * @throws MagentoEndpointNotFoundError
+   * @throws MagentoEndpointNotAllowedError
+   * @throws MagentoEndpointError
+   * @throws UnknownError
+   */
+  handleError (error, options, timeStart, message) {
+    const statusCode = _.get('error.response.statusCode')
+    if (statusCode && [401, 403, 404, 405].includes(statusCode)) {
+      if (statusCode === 401 || statusCode === 403) {
+        this.log(error.response, util.inspect(options, true, 5), timeStart, 'UnauthorizedError')
+        throw new UnauthorizedError()
+      } else if (statusCode === 404) {
+        this.log(error.response, util.inspect(options, true, 5), timeStart, 'MagentoEndpointNotFoundError')
+        throw new MagentoEndpointNotFoundError()
+      } else if (statusCode === 405) {
+        this.log(error.response, util.inspect(options, true, 5), timeStart, 'MagentoEndpointNotAllowedError')
+        throw new MagentoEndpointNotAllowedError()
+      }
+    } else if (error.error && error.response) {
+      this.log(error.response, util.inspect(options, true, 5), timeStart, 'MagentoEndpointError')
+      throw new MagentoEndpointError()
+    } else {
+      this.log(_.get('error.response', {}), util.inspect(options, true, 5), timeStart, _.get('error.message', ''))
+      throw new UnknownError()
+    }
+  }
+
+  /**
+   * @param {Object} response
+   * @param {Object} request
+   * @param {Date} timerStart
+   * @param {string} message
+   */
+  log (response, request, timerStart, message) {
+    this.logger.debug(
       {
         duration: new Date() - timerStart,
-        statusCode,
+        statusCode: _.get('response.statusCode', 0),
         request,
         response:
           {
-            headers: this.response.headers,
-            body: this.response.body
+            headers: _.get('response.headers', {}),
+            body: _.get('response.body', {})
           }
       },
       message

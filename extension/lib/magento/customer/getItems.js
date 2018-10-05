@@ -1,7 +1,4 @@
 const MagentoRequest = require('../Request')
-const _ = {
-  forEach: require('lodash/forEach')
-}
 
 /**
  * @param {Object} context
@@ -17,25 +14,22 @@ module.exports = async (context, input) => {
 }
 
 async function getItems (context, token) {
+  const request = new MagentoRequest(context, token)
   const wishlistIdsEndpointUrl = `${context.config.magentoUrl}/wishlists`
-  const productIds = []
   /**
    * Get all wishlist ids of the customer. At the moment we only support one wishlist per customer
    * @typedef {Object} wishlists
    * @property {string} wishlist_id
    */
-  const wishlists = await MagentoRequest.send(wishlistIdsEndpointUrl, context, token, 'GET')
+  const wishlists = await request.send(wishlistIdsEndpointUrl, 'getWishlistItems')
 
   if (!wishlists.length || !wishlists[0].wishlist_id) {
-    return { productIds }
+    return { productIds: [] }
   }
 
   const wishlistItemsEndpointUrl = `${context.config.magentoUrl}/wishlists/${wishlists[0].wishlist_id}/items`
-  const wishlistItems = await MagentoRequest.send(wishlistItemsEndpointUrl, context, token, 'GET', 'Request to Magento: getFavorites')
-
-  _.forEach(wishlistItems, (wishlistItem) => {
-    productIds.push(wishlistItem.product_id)
-  })
+  const wishlistItems = await request.send(wishlistItemsEndpointUrl, 'Request to Magento: getFavorites', 'GET')
+  const productIds = wishlistItems.map(item => item.product_id)
 
   return { productIds }
 }
