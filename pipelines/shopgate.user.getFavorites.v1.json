@@ -21,14 +21,60 @@
       },
       {
         "type": "extension",
-        "id": "@shopgate/ext-magento-favorites",
-        "path": "@shopgate/ext-magento-favorites/lib/magento/customer/getItems.js",
-        "input": [
-          {"key": "token", "id": "140"}
-        ],
+        "id": "@shopgate/favorites",
+        "path": "@shopgate/favorites/user/getUserId.js",
+        "input": [],
         "output": [
-          {"key": "productIds", "id": "120"}
+          {
+            "key": "userId",
+            "id": "20"
+          }
         ]
+      },
+      {
+        "type": "conditional",
+        "input": [
+          {
+            "key": "userId",
+            "id": "20"
+          }
+        ],
+        "expression": {
+          "ok": [
+            {
+              "name": "userId"
+            }
+          ]
+        },
+        "then": {
+          "type": "extension",
+          "id": "@shopgate/ext-magento-favorites",
+          "path": "@shopgate/ext-magento-favorites/lib/magento/customer/getItems.js",
+          "input": [
+            {
+              "key": "token",
+              "id": "140"
+            }
+          ],
+          "output": [
+            {
+              "key": "productIds",
+              "id": "120"
+            }
+          ]
+        },
+        "else": {
+          "type": "extension",
+          "id": "@shopgate/favorites",
+          "path": "@shopgate/favorites/anonymous/getItems.js",
+          "input": [],
+          "output": [
+            {
+              "key": "productIds",
+              "id": "120"
+            }
+          ]
+        }
       },
       {
         "type": "conditional",
