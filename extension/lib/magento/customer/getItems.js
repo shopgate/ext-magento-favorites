@@ -6,15 +6,7 @@ const MagentoRequest = require('../Request')
  * @returns {Promise<{productIds: string[]}>}
  */
 module.exports = async (context, input) => {
-  if (!context.meta.userId) {
-    return { productIds: [] }
-  }
-
-  return getItems(context, input.token)
-}
-
-async function getItems (context, token) {
-  const request = new MagentoRequest(context, token)
+  const request = new MagentoRequest(context, input.token)
   const wishlistIdsEndpointUrl = `${context.config.magentoUrl}/wishlists`
   /**
    * Get all wishlist ids of the customer. At the moment we only support one wishlist per customer

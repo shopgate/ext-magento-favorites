@@ -1,7 +1,7 @@
 {
   "name": "@shopgate/ext-magento-favorites",
   "version": "1.0.0",
-  "description": "prototype",
+  "description": "Helps with retrieving wishlist from Magento. Relies on @shopgate/magento-cart & @shopgate/favorites extensions to operate",
   "scripts": {
     "test": "JUNIT_REPORT_PATH=../build/mocha.xml JUNIT_REPORT_STACK=1 mocha --recursive test -R mochawesome --reporter-options reportDir=coverage",
     "cover": "istanbul cover _mocha -- --recursive"
@@ -11,20 +11,15 @@
     "url": "https://github.com/shopgate/ext-magento-favorites"
   },
   "license": "Apache-2.0",
-  "dependencies": {
-    "ent": "^2.2.0",
-    "lodash": "^4.17.5",
-    "moment": "^2.20.1",
-    "neo-async": "^2.5.0",
-    "request": "^2.87.0"
-  },
   "devDependencies": {
-    "istanbul": "^0.4.5",
+    "lodash": "^4.17.5",
+    "istanbul": "1.1.0-alpha.1",
     "mocha": "^5.2.0",
     "mochawesome": "3.0.2",
     "nock": "^9.0.13",
     "rewire": "^2.5.2",
     "underscore": "1.8.3",
+    "request": "^2.87.0",
     "request-promise-native": "^1.0.5"
   },
   "standard": {
