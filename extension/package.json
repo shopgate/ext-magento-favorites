@@ -6,7 +6,7 @@
     "lint": "./node_modules/.bin/eslint --ignore-path ../.gitignore --ext .js --ext .jsx .",
     "test": "./node_modules/.bin/_mocha --use_strict --recursive ./test/unit",
     "cover": "./node_modules/.bin/nyc npm test && ./node_modules/.bin/nyc report --reporter=text-lcov | coveralls",
-    "newman": "newman run ./test/newman/collection.json --globals ./test/newman/globals.json --environment ./test/newman/environment.json"
+    "newman": "./node_modules/.bin/newman run ./test/newman/collection.json --globals ./test/newman/globals.json --environment ./test/newman/environment.json"
   },
   "repository": {
     "type": "git",
