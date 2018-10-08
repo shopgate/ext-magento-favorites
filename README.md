@@ -1,5 +1,5 @@
 # Shopgate Connect - Extension Magento Favorites
-[![GitHub license](http://dmlc.github.io/img/apache2.svg)](LICENSE)
+[![GitHub license](http://dmlc.github.io/img/apache2.svg)](LICENSE.md)
 [![Build Status](https://travis-ci.org/shopgate/ext-magento-favorites.svg?branch=master)](https://travis-ci.org/shopgate/ext-magento-favorites)
 [![Coverage Status](https://coveralls.io/repos/github/shopgate/ext-magento-favorites/badge.svg?branch=master)](https://coveralls.io/github/shopgate/ext-magento-favorites?branch=master)
 
@@ -25,4 +25,4 @@ apps and mobile websites for the iPhone, iPad, Android smartphones and tablets.
 
 Shopgate Connect - Extension Magento Favorites is available under the Apache License, Version 2.0.
 
-See the [LICENSE](./LICENSE.md) file for more information.
+See the [LICENSE](LICENSE.md) file for more information.
