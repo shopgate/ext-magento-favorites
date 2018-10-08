@@ -1,5 +1,5 @@
 {
-  "name": "@shopgate/ext-magento-favorites",
+  "name": "@shopgate/magento-favorites",
   "version": "1.0.0",
   "description": "Helps with retrieving wishlist from Magento. Relies on @shopgate/magento-cart & @shopgate/favorites extensions to operate",
   "scripts": {
