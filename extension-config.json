@@ -2,13 +2,6 @@
   "version": "1.0.0",
   "id": "@shopgate/magento-favorites",
   "configuration": {
-    "enableCartCoupons" : {
-      "type" : "static",
-      "destination" : "backend",
-      "params" : {
-        "value" : true
-      }
-    },
     "magentoUrl" : {
       "type": "bigApi",
       "destination" : "backend",
@@ -18,17 +11,6 @@
         "service": "config",
         "path": "/v1/shop/%(shopId)s/checkout_web_checkout_shopify?parsed=true",
         "key": "value.backend.magentoUrl"
-      }
-    },
-    "credentials" : {
-      "type": "bigApi",
-      "destination" : "backend",
-      "default": null,
-      "params": {
-        "method":  "GET",
-        "service": "config",
-        "path": "/v1/shop/%(shopId)s/checkout_web_checkout_shopify?parsed=true",
-        "key": "value.backend.credentials"
       }
     },
     "allowSelfSignedCertificate" : {
