@@ -1,25 +1,21 @@
 {
-  "name": "@shopgate/ext-magento-favorites",
-  "version": "0.1.0",
-  "description": "prototype",
+  "name": "@shopgate/magento-favorites",
+  "version": "1.0.0",
+  "description": "Helps with retrieving wishlist from Magento. Relies on @shopgate/magento-cart & @shopgate/favorites extensions to operate",
   "scripts": {
     "lint": "./node_modules/.bin/eslint --ignore-path ../.gitignore --ext .js --ext .jsx .",
     "test": "./node_modules/.bin/_mocha --use_strict --recursive ./test/unit",
-    "cover": "./node_modules/.bin/nyc npm test && ./node_modules/.bin/nyc report --reporter=text-lcov | coveralls"
+    "cover": "./node_modules/.bin/nyc npm test && ./node_modules/.bin/nyc report --reporter=text-lcov | coveralls",
+    "newman": "./node_modules/.bin/newman run ./test/newman/collection.json --globals ./test/newman/globals.json --environment ./test/newman/environment.json"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/shopgate/ext-magento-favorites/"
+    "url": "https://github.com/shopgate/ext-magento-favorites"
   },
   "license": "Apache-2.0",
-  "dependencies": {
-    "ent": "^2.2.0",
-    "lodash": "^4.17.5",
-    "moment": "^2.20.1",
-    "neo-async": "^2.5.0",
-    "request": "^2.87.0"
-  },
   "devDependencies": {
+    "lodash": "^4.17.5",
+    "istanbul": "1.1.0-alpha.1",
     "coveralls": "^3.0.2",
     "eslint": "^5.5.0",
     "eslint-config-standard": "^12.0.0",
@@ -29,10 +25,11 @@
     "eslint-plugin-standard": "^4.0.0",
     "mocha": "^5.2.0",
     "mochawesome": "3.0.2",
+    "newman": "^4.1.0",
     "nock": "^9.0.13",
     "nyc": "^13.0.1",
-    "rewire": "^2.5.2",
-    "underscore": "1.8.3"
+    "request": "^2.87.0",
+    "request-promise-native": "^1.0.5"
   },
   "standard": {
     "ignore": [],

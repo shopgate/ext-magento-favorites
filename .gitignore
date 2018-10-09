@@ -1,9 +1,12 @@
 .DS_Store
-.nyc_output/
-build
+extension/.nyc_output/
+extension/build
 extension/coverage
 extension/node_modules
 .idea/
 npm-debug.log
-/extension/config.json
-/extension/package-lock.json
+extension/config.json
+extension/package-lock.json
+
+# removed from tracking as it should be your personal login/sensitive data
+extension/test/newman/environment.json
