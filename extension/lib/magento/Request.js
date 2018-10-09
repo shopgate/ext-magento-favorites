@@ -69,23 +69,26 @@ class Request {
    * @throws UnknownError
    */
   handleError (error, options, timeStart) {
-    const statusCode = _.get(error, 'response.statusCode')
-    if (statusCode && [401, 403, 404, 405].includes(statusCode)) {
-      if (statusCode === 401 || statusCode === 403) {
-        this.log(error.response, util.inspect(options, true, 5), timeStart, 'UnauthorizedError')
-        throw new UnauthorizedError()
-      } else if (statusCode === 404) {
-        this.log(error.response, util.inspect(options, true, 5), timeStart, 'MagentoEndpointNotFoundError')
-        throw new MagentoEndpointNotFoundError()
-      } else if (statusCode === 405) {
-        this.log(error.response, util.inspect(options, true, 5), timeStart, 'MagentoEndpointNotAllowedError')
-        throw new MagentoEndpointNotAllowedError()
+    const statusCode = _.get(error, 'response.statusCode', 0)
+    const parsedOptions = util.inspect(options, true, 5)
+    if (statusCode && statusCode >= 400) {
+      switch (statusCode) {
+        case 401:
+        case 403:
+          this.log(error.response, parsedOptions, timeStart, 'UnauthorizedError')
+          throw new UnauthorizedError()
+        case 404:
+          this.log(error.response, parsedOptions, timeStart, 'MagentoEndpointNotFoundError')
+          throw new MagentoEndpointNotFoundError()
+        case 405:
+          this.log(error.response, parsedOptions, timeStart, 'MagentoEndpointNotAllowedError')
+          throw new MagentoEndpointNotAllowedError()
+        default:
+          this.log(error.response || {}, parsedOptions, timeStart, 'MagentoEndpointError')
+          throw new MagentoEndpointError()
       }
-    } else if (error.error && error.response) {
-      this.log(error.response, util.inspect(options, true, 5), timeStart, 'MagentoEndpointError')
-      throw new MagentoEndpointError()
     }
-    this.log(_.get(error, 'response', {}), util.inspect(options, true, 5), timeStart, _.get(error, 'message', ''))
+    this.log(error.response || {}, parsedOptions, timeStart, error.message || '')
     throw new UnknownError()
   }
 
