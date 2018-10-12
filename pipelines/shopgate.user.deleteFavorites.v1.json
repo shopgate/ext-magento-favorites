@@ -1,0 +1,108 @@
+{
+  "version": "1",
+  "pipeline": {
+    "id": "shopgate.user.deleteFavorites.v1",
+    "input": [
+      {
+        "id": "1",
+        "key": "productId"
+      }
+    ],
+    "steps": [
+      {
+        "type": "pipeline",
+        "id": "shopgate.general.getToken.v1",
+        "trusted": true,
+        "input": [],
+        "output": [
+          {
+            "key": "token",
+            "id": "100"
+          }
+        ]
+      },
+      {
+        "id": "@shopgate/favorites",
+        "path": "@shopgate/favorites/convertToArray.js",
+        "type": "extension",
+        "input": [
+          {
+            "id": "1",
+            "key": "productId"
+          }
+        ],
+        "output": [
+          {
+            "id": "1",
+            "key": "productIds"
+          }
+        ]
+      },
+      {
+        "id": "@shopgate/favorites",
+        "path": "@shopgate/favorites/user/getUserId.js",
+        "type": "extension",
+        "input": [],
+        "output": [
+          {
+            "id": "10",
+            "key": "userId"
+          }
+        ]
+      },
+      {
+        "else": {
+          "id": "@shopgate/favorites",
+          "path": "@shopgate/favorites/anonymous/deleteItem.js",
+          "type": "extension",
+          "input": [
+            {
+              "id": "1",
+              "key": "productIds"
+            }
+          ],
+          "output": []
+        },
+        "then": {
+          "id": "@shopgate/magento-favorites",
+          "path": "@shopgate/magento-favorites/lib/magento/customer/deleteItems.js",
+          "type": "extension",
+          "input": [
+            {
+              "id": "1",
+              "key": "productIds"
+            },
+            {
+              "key": "token",
+              "id": "100"
+            }
+          ],
+          "output": []
+        },
+        "type": "conditional",
+        "input": [
+          {
+            "id": "10",
+            "key": "userId"
+          }
+        ],
+        "expression": {
+          "ok": [
+            {
+              "name": "userId"
+            }
+          ]
+        }
+      },
+      {
+        "id": "@shopgate/favorites",
+        "path": "@shopgate/favorites/catch/catchGenericError.js",
+        "type": "errorCatchExtension",
+        "input": [],
+        "output": []
+      }
+    ],
+    "output": [],
+    "public": true
+  }
+}
