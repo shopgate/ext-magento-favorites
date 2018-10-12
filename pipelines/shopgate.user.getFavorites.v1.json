@@ -74,14 +74,9 @@
         },
         "else": {
           "type": "extension",
-          "id": "@shopgate/magento-favorites",
-          "path": "@shopgate/magento-favorites/lib/magento/customer/getItems.js",
-          "input": [
-            {
-              "key": "token",
-              "id": "140"
-            }
-          ],
+          "id": "@shopgate/favorites",
+          "path": "@shopgate/favorites/anonymous/getItems.js",
+          "input": [],
           "output": [
             {
               "key": "productIds",
