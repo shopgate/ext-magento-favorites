@@ -1,176 +1,301 @@
 {
-  "info": {
-    "_postman_id": "02608719-8b6a-4c1a-8753-e7f4e3b2b84a",
-    "name": "Magento Connect - Favorites",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-  },
-  "item": [
-    {
-      "name": "getFavorites",
-      "item": [
-        {
-          "name": "Get: Guest favorites",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "id": "0e9d63aa-87f7-4923-b737-5e15e8116538",
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test(\"Status code is 200\", function () {",
-                  "    pm.response.to.have.status(200);",
-                  "});",
-                  "",
-                  "pm.test(\"Response have the correct format\", () => {",
-                  "    const response = pm.response.json();",
-                  "    pm.expect(response.products).to.be.a('array').to.be.empty;",
-                  "});"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n\t\n}"
-            },
-            "url": {
-              "raw": "{{domain}}{{endpoint_user_favorites_get}}",
-              "host": [
-                "{{domain}}{{endpoint_user_favorites_get}}"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Login",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "id": "73f7922e-ca38-4f28-855f-6db6b6e0dd01",
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test(\"Status code is 200\", function () {",
-                  "    pm.response.to.have.status(200);",
-                  "});"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n\t\"strategy\": \"basic\",\n\t\"parameters\": {\n\t\t\"login\": \"{{username}}\",\n\t\t\"password\": \"{{password}}\"\n\t}\n}"
-            },
-            "url": {
-              "raw": "{{domain}}{{endpoint_user_login}}",
-              "host": [
-                "{{domain}}{{endpoint_user_login}}"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get: Customer favorites",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "id": "5cd67dd2-faf6-4720-8031-cbf3a65d0a32",
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test(\"Status code is 200\", function () {",
-                  "    pm.response.to.have.status(200);",
-                  "});",
-                  "",
-                  "pm.test(\"Response have the correct format\", () => {",
-                  "    const response = pm.response.json();",
-                  "    pm.expect(response.products).to.be.a('array').to.not.be.empty;",
-                  "});"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{}"
-            },
-            "url": {
-              "raw": "{{domain}}{{endpoint_user_favorites_get}}",
-              "host": [
-                "{{domain}}{{endpoint_user_favorites_get}}"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Logout",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "id": "9ba46b74-c970-4d65-a134-f21d6d1ff448",
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test(\"Status code is 200\", function () {",
-                  "    pm.response.to.have.status(200);",
-                  "});"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n}"
-            },
-            "url": {
-              "raw": "{{domain}}/trustedPipelines/shopgate.user.logoutUser.v1",
-              "host": [
-                "{{domain}}"
-              ],
-              "path": [
-                "trustedPipelines",
-                "shopgate.user.logoutUser.v1"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    }
-  ]
+	"info": {
+		"_postman_id": "36296057-99d3-44cf-9969-3eec4b146101",
+		"name": "Magento Connect - Favorites",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getFavorites",
+			"item": [
+				{
+					"name": "Get: Guest favorites",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0e9d63aa-87f7-4923-b737-5e15e8116538",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response have the correct format\", () => {",
+									"    const response = pm.response.json();",
+									"    pm.expect(response.products).to.be.a('array').to.be.empty;",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\n}"
+						},
+						"url": {
+							"raw": "{{domain}}{{endpoint_user_favorites_get}}",
+							"host": [
+								"{{domain}}{{endpoint_user_favorites_get}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "73f7922e-ca38-4f28-855f-6db6b6e0dd01",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"strategy\": \"basic\",\n\t\"parameters\": {\n\t\t\"login\": \"{{username}}\",\n\t\t\"password\": \"{{password}}\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{domain}}{{endpoint_user_login}}",
+							"host": [
+								"{{domain}}{{endpoint_user_login}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get: Customer favorites",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5cd67dd2-faf6-4720-8031-cbf3a65d0a32",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response have the correct format\", () => {",
+									"    const response = pm.response.json();",
+									"    pm.expect(response.products).to.be.a('array').to.not.be.empty;",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "{{domain}}{{endpoint_user_favorites_get}}",
+							"host": [
+								"{{domain}}{{endpoint_user_favorites_get}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9ba46b74-c970-4d65-a134-f21d6d1ff448",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n}"
+						},
+						"url": {
+							"raw": "{{domain}}/trustedPipelines/shopgate.user.logoutUser.v1",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"trustedPipelines",
+								"shopgate.user.logoutUser.v1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "addFavorites",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "73f7922e-ca38-4f28-855f-6db6b6e0dd01",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"strategy\": \"basic\",\n\t\"parameters\": {\n\t\t\"login\": \"{{username}}\",\n\t\t\"password\": \"{{password}}\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{domain}}{{endpoint_user_login}}",
+							"host": [
+								"{{domain}}{{endpoint_user_login}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add: Customer favorites",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "75ebdfa1-4830-4477-b86b-1f4d001fedbc",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response have the correct format\", () => {",
+									"    const response = pm.response.json();",
+									"    pm.expect(response).to.be.a('object').to.be.empty;",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"productId\" : \"337\"\n}"
+						},
+						"url": {
+							"raw": "{{domain}}{{endpoint_user_favorites_add}}",
+							"host": [
+								"{{domain}}{{endpoint_user_favorites_add}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9ba46b74-c970-4d65-a134-f21d6d1ff448",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n}"
+						},
+						"url": {
+							"raw": "{{domain}}/trustedPipelines/shopgate.user.logoutUser.v1",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"trustedPipelines",
+								"shopgate.user.logoutUser.v1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
 }
