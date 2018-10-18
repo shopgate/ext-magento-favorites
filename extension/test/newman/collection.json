@@ -93,17 +93,190 @@
             {
               "listen": "test",
               "script": {
-                "id": "5cd67dd2-faf6-4720-8031-cbf3a65d0a32",
+                "id": "1b16a7c1-fb65-47bf-b9c7-87cb8d7090a2",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 200\", function () {",
                   "    pm.response.to.have.status(200);",
                   "});",
                   "",
+                  "const response = pm.response.json();",
                   "pm.test(\"Response have the correct format\", () => {",
-                  "    const response = pm.response.json();",
                   "    pm.expect(response.products).to.be.a('array').to.not.be.empty;",
+                  "});",
+                  "",
+                  "pm.environment.set(\"wishlist-length\", response.products.length);",
+                  "pm.environment.set(\"wishlist-item-id\", response.products[0].id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{domain}}{{endpoint_user_favorites_get}}",
+              "host": [
+                "{{domain}}{{endpoint_user_favorites_get}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete: not existing customer favorite",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "28ee627d-ac35-409e-ad73-20d1f25881b4",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
                   "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"productId\": \"123456789\"\n}"
+            },
+            "url": {
+              "raw": "{{domain}}{{endpoint_user_favorites_delete}}",
+              "host": [
+                "{{domain}}{{endpoint_user_favorites_delete}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get: unchanged customer favorites",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "8e37c9ab-dc2e-4fd9-9505-398a99ab5d47",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "const response = pm.response.json();",
+                  "pm.test(\"Response have the correct format\", () => {",
+                  "    pm.expect(response.products).to.be.a('array').to.not.be.empty;",
+                  "});",
+                  "",
+                  "pm.test(\"Number of items did not change\", () => {",
+                  "    pm.expect(response.products.length).to.eql(pm.environment.get(\"wishlist-length\"));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{domain}}{{endpoint_user_favorites_get}}",
+              "host": [
+                "{{domain}}{{endpoint_user_favorites_get}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete: Customer favorite",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "29b3580c-acf6-4360-abd4-6c3edd110e8d",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.environment.set(\"wishlist-item-id\", response.products[0].id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"productId\": \"{{wishlist-item-id}}\"\n}"
+            },
+            "url": {
+              "raw": "{{domain}}{{endpoint_user_favorites_delete}}",
+              "host": [
+                "{{domain}}{{endpoint_user_favorites_delete}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get: Customer favorites Copy",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "535f151b-3bb3-4b77-80ef-f77b56c068fd",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "const response = pm.response.json();",
+                  "pm.test(\"Response have the correct format\", () => {",
+                  "    pm.expect(response.products).to.be.a('array').to.not.be.empty;",
+                  "});",
+                  "",
+                  "pm.test(\"One wishlist item was removed\", () => {",
+                  "    pm.expect(response.products.length).to.eql(pm.environment.get(\"wishlist-length\")-1);",
+                  "});",
+                  "",
+                  "pm.environment.set(\"wishlist-length\", response.products.length);"
                 ]
               }
             }
