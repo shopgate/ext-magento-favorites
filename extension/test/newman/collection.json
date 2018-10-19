@@ -253,7 +253,7 @@
           "response": []
         },
         {
-          "name": "Get: Customer favorites Copy",
+          "name": "Get: Check item was removed",
           "event": [
             {
               "listen": "test",
