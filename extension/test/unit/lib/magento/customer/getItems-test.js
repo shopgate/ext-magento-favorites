@@ -29,6 +29,12 @@ describe('magento/customer: getItems step', () => {
       log: {
         debug: (object, message) => {
         }
+      },
+      storage: {
+        user: {
+          set: () => {
+          }
+        }
       }
     }
   })
