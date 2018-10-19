@@ -221,14 +221,12 @@
             {
               "listen": "test",
               "script": {
-                "id": "29b3580c-acf6-4360-abd4-6c3edd110e8d",
+                "id": "bb1250ea-8604-4e3b-9d03-c6d628f576a0",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 200\", function () {",
                   "    pm.response.to.have.status(200);",
-                  "});",
-                  "",
-                  "pm.environment.set(\"wishlist-item-id\", response.products[0].id);"
+                  "});"
                 ]
               }
             }
@@ -260,7 +258,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "535f151b-3bb3-4b77-80ef-f77b56c068fd",
+                "id": "40913af9-0c41-42e7-aa75-475492178179",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 200\", function () {",
@@ -276,7 +274,12 @@
                   "    pm.expect(response.products.length).to.eql(pm.environment.get(\"wishlist-length\")-1);",
                   "});",
                   "",
-                  "pm.environment.set(\"wishlist-length\", response.products.length);"
+                  "pm.test(\"The correct wishlist item removed\", () => {",
+                  "    pm.expect(response.products[0].id).to.not.eql(pm.environment.get(\"wishlist-item-id\"));",
+                  "});",
+                  "",
+                  "pm.environment.unset(\"wishlist-item-id\");",
+                  "pm.environment.unset(\"wishlist-length\");"
                 ]
               }
             }
