@@ -11,5 +11,5 @@ module.exports = async (context, input) => {
   const wishlistAddItemEndpointUrl = `${context.config.magentoUrl}/wishlists/${input.wishlistId}/items`
   const wishlistItems = input.transformedProducts.map(({ product }) => product)
 
-  await request.send(wishlistAddItemEndpointUrl, 'Request to Magento: addFavorites', 'POST', wishlistItems)
+  await request.send(wishlistAddItemEndpointUrl, 'addFavorites', 'POST', wishlistItems)
 }

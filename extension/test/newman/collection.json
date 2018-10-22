@@ -1,31 +1,66 @@
 {
 	"info": {
-		"_postman_id": "36296057-99d3-44cf-9969-3eec4b146101",
+      "_postman_id": "35f64090-ef1e-4350-9160-4a0b3acad40b",
 		"name": "Magento Connect - Favorites",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "getFavorites",
+          "name": "Guest",
 			"item": [
 				{
-					"name": "Get: Guest favorites",
+                  "name": "Logout",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "id": "73f7922e-ca38-4f28-855f-6db6b6e0dd01",
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript"
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{}"
+                    },
+                    "url": {
+                      "raw": "{{domain}}{{endpoint_user_logout}}",
+                      "host": [
+                        "{{domain}}{{endpoint_user_logout}}"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+              {
+                "name": "Check favorites is empty",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"id": "0e9d63aa-87f7-4923-b737-5e15e8116538",
-								"type": "text/javascript",
 								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
+                                  "pm.test('Status code is 200', function () {",
 									"    pm.response.to.have.status(200);",
 									"});",
 									"",
-									"pm.test(\"Response have the correct format\", () => {",
+                                  "pm.test('No items exist in the fav. list', () => {",
 									"    const response = pm.response.json();",
 									"    pm.expect(response.products).to.be.a('array').to.be.empty;",
 									"});"
-								]
+                                ],
+                              "type": "text/javascript"
 							}
 						}
 					],
@@ -39,7 +74,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\n}"
+                          "raw": "{}"
 						},
 						"url": {
 							"raw": "{{domain}}{{endpoint_user_favorites_get}}",
@@ -51,18 +86,18 @@
 					"response": []
 				},
 				{
-					"name": "Login",
+                  "name": "Add config product child",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
-								"id": "73f7922e-ca38-4f28-855f-6db6b6e0dd01",
-								"type": "text/javascript",
+                              "id": "75ebdfa1-4830-4477-b86b-1f4d001fedbc",
 								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
+                                  "pm.test('Status code is 200', function () {",
 									"    pm.response.to.have.status(200);",
 									"});"
-								]
+                                ],
+                              "type": "text/javascript"
 							}
 						}
 					],
@@ -76,35 +111,36 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"strategy\": \"basic\",\n\t\"parameters\": {\n\t\t\"login\": \"{{username}}\",\n\t\t\"password\": \"{{password}}\"\n\t}\n}"
+                          "raw": "{\n\t\"productId\" : \"422\"\n}"
 						},
 						"url": {
-							"raw": "{{domain}}{{endpoint_user_login}}",
+                          "raw": "{{domain}}{{endpoint_user_favorites_add}}",
 							"host": [
-								"{{domain}}{{endpoint_user_login}}"
+                              "{{domain}}{{endpoint_user_favorites_add}}"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Get: Customer favorites",
+                  "name": "Configrm config. product",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"id": "5cd67dd2-faf6-4720-8031-cbf3a65d0a32",
-								"type": "text/javascript",
 								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
+                                  "pm.test('Status code is 200', function () {",
 									"    pm.response.to.have.status(200);",
 									"});",
 									"",
-									"pm.test(\"Response have the correct format\", () => {",
+                                  "pm.test('Check that the config. is properly added', () => {",
 									"    const response = pm.response.json();",
 									"    pm.expect(response.products).to.be.a('array').to.not.be.empty;",
+                                  "    pm.expect(response.products[0].id).to.eq('422');",
 									"});"
-								]
+                                ],
+                              "type": "text/javascript"
 							}
 						}
 					],
@@ -128,20 +164,25 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "Logout",
+                }
+            ]
+        },
+      {
+        "name": "Customer",
+        "item": [
+          {
+            "name": "Login",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
-								"id": "9ba46b74-c970-4d65-a134-f21d6d1ff448",
-								"type": "text/javascript",
+                              "id": "73f7922e-ca38-4f28-855f-6db6b6e0dd01",
 								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
+                                  "pm.test('Status code is 200', function () {",
 									"    pm.response.to.have.status(200);",
 									"});"
-								]
+                                ],
+                              "type": "text/javascript"
 							}
 						}
 					],
@@ -155,39 +196,35 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n}"
+                          "raw": "{\n\t\"strategy\": \"basic\",\n\t\"parameters\": {\n\t\t\"login\": \"{{username}}\",\n\t\t\"password\": \"{{password}}\"\n\t}\n}"
 						},
 						"url": {
-							"raw": "{{domain}}/trustedPipelines/shopgate.user.logoutUser.v1",
+                          "raw": "{{domain}}{{endpoint_user_login}}",
 							"host": [
-								"{{domain}}"
-							],
-							"path": [
-								"trustedPipelines",
-								"shopgate.user.logoutUser.v1"
+                              "{{domain}}{{endpoint_user_login}}"
 							]
 						}
 					},
 					"response": []
-				}
-			]
-		},
-		{
-			"name": "addFavorites",
-			"item": [
-				{
-					"name": "Login",
+          },
+          {
+            "name": "Check no products exist",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
-								"id": "73f7922e-ca38-4f28-855f-6db6b6e0dd01",
-								"type": "text/javascript",
+                              "id": "5cd67dd2-faf6-4720-8031-cbf3a65d0a32",
 								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
+                                  "pm.test('Status code is 200', function () {",
 									"    pm.response.to.have.status(200);",
+                                  "});",
+                                  "",
+                                  "pm.test('Response has no items', () => {",
+                                  "    const response = pm.response.json();",
+                                  "    pm.expect(response.products).to.be.a('array').to.be.empty;",
 									"});"
-								]
+                                ],
+                              "type": "text/javascript"
 							}
 						}
 					],
@@ -201,35 +238,30 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"strategy\": \"basic\",\n\t\"parameters\": {\n\t\t\"login\": \"{{username}}\",\n\t\t\"password\": \"{{password}}\"\n\t}\n}"
+                          "raw": "{}"
 						},
 						"url": {
-							"raw": "{{domain}}{{endpoint_user_login}}",
+                          "raw": "{{domain}}{{endpoint_user_favorites_get}}",
 							"host": [
-								"{{domain}}{{endpoint_user_login}}"
+                              "{{domain}}{{endpoint_user_favorites_get}}"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Add: Customer favorites",
+                  "name": "Add product to list",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"id": "75ebdfa1-4830-4477-b86b-1f4d001fedbc",
-								"type": "text/javascript",
 								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
+                                  "pm.test('Status code is 200', function () {",
 									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"pm.test(\"Response have the correct format\", () => {",
-									"    const response = pm.response.json();",
-									"    pm.expect(response).to.be.a('object').to.be.empty;",
 									"});"
-								]
+                                ],
+                              "type": "text/javascript"
 							}
 						}
 					],
@@ -255,18 +287,24 @@
 					"response": []
 				},
 				{
-					"name": "Logout",
+                  "name": "Check product exists",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
-								"id": "9ba46b74-c970-4d65-a134-f21d6d1ff448",
-								"type": "text/javascript",
+                              "id": "5cd67dd2-faf6-4720-8031-cbf3a65d0a32",
 								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
+                                  "pm.test('Status code is 200', function () {",
 									"    pm.response.to.have.status(200);",
+                                  "});",
+                                  "",
+                                  "pm.test('Response has the correct product', () => {",
+                                  "    const response = pm.response.json();",
+                                  "    pm.expect(response.products).to.be.a('array').to.not.be.empty;",
+                                  "    pm.expect(response.products[0].id).to.eq('337');",
 									"});"
-								]
+                                ],
+                              "type": "text/javascript"
 							}
 						}
 					],
@@ -280,16 +318,12 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n}"
+                          "raw": "{}"
 						},
 						"url": {
-							"raw": "{{domain}}/trustedPipelines/shopgate.user.logoutUser.v1",
+                          "raw": "{{domain}}{{endpoint_user_favorites_get}}",
 							"host": [
-								"{{domain}}"
-							],
-							"path": [
-								"trustedPipelines",
-								"shopgate.user.logoutUser.v1"
+                              "{{domain}}{{endpoint_user_favorites_get}}"
 							]
 						}
 					},

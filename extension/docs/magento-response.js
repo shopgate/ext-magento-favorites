@@ -295,16 +295,12 @@
  */
 
 /**
- * @typedef {MagentoResponseWishlistItem[]} MagentoResponseWishlists
- */
-
-/**
  * @typedef {Object} MagentoResponseWishlistItem
- * @property {string} wishlist_id - id of the whislist
+ * @property {string} wishlist_id - id of the wishlist
  * @property {string} customer_id - id of the customer
- * @property {string} shared - is shared whishlist
- * @property {string} sharing_code - sharing code of whishlist
+ * @property {string} shared - is shared wishlist
+ * @property {string} sharing_code - sharing code of wishlist
  * @property {string} updated_at
- * @property {string} name - name of the whishlist
- * @property {string} visibility - visibility of the whishlist
+ * @property {string} name - name of the wishlist
+ * @property {string} visibility - visibility of the wishlist
  */

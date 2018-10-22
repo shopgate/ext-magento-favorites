@@ -9,15 +9,14 @@ module.exports = async (context, input) => {
   if (input.wishlistId) {
     return input.wishlistId
   }
+
   const request = new MagentoRequest(context, input.token)
   const wishlistsEndpointUrl = `${context.config.magentoUrl}/wishlists`
-  /** @type {MagentoResponseWishlists} wishlists */
-  const wishlists = await request.send(wishlistsEndpointUrl, 'Request to Magento: getWishlists')
+  /** @type {MagentoResponseWishlistItem[]} wishlists */
+  const wishlists = await request.send(wishlistsEndpointUrl, 'getWishlists')
   if (wishlists.length === 0) {
-    const params = { visibility: 'private' }
-    const { wishlistId } = await request.send(wishlistsEndpointUrl, 'Request to Magento: createWishlists', 'POST', params)
-    return { wishlistId }
+    return request.send(wishlistsEndpointUrl, 'createWishlist', 'POST', { name: 'Default List' })
   }
-  const wishlistId = wishlists[0].wishlist_id
-  return { wishlistId }
+
+  return { wishlistId: wishlists[0].wishlist_id }
 }
