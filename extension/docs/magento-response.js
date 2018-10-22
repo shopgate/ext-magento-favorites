@@ -295,11 +295,11 @@
  */
 
 /**
- * @typedef {MagentoResponseWhishlistItem[]} MagentoResponseWhishlists
+ * @typedef {MagentoResponseWishlistItem[]} MagentoResponseWishlists
  */
 
 /**
- * @typedef {Object} MagentoResponseWhishlistItem
+ * @typedef {Object} MagentoResponseWishlistItem
  * @property {string} wishlist_id - id of the whislist
  * @property {string} customer_id - id of the customer
  * @property {string} shared - is shared whishlist

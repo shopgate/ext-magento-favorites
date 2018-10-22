@@ -4,30 +4,13 @@
     "id": "shopgate.user.addFavoriteData.v1",
     "public": true,
     "input": [
-      {
-        "key": "productIds",
-        "id": "1"
-      },
-      {
-        "key": "products",
-        "id": "100"
-      },
-      {
-        "key": "wishlistId",
-        "id": "110",
-        "optional": true
-      }
+      {"key": "productIds", "id": "1"},
+      {"key": "products", "id": "100"},
+      {"key": "wishlistId", "id": "110", "optional": true}
     ],
     "output": [
-      {
-        "key": "magentoParentProducts",
-        "id": "150",
-        "optional": true
-      },
-      {
-        "key": "products",
-        "id": "100"
-      }
+      {"key": "magentoParentProducts", "id": "150", "optional": true},
+      {"key": "products", "id": "100"}
     ],
     "steps": [
       {
@@ -36,10 +19,7 @@
         "trusted": true,
         "input": [],
         "output": [
-          {
-            "key": "token",
-            "id": "140"
-          }
+          {"key": "token", "id": "140"}
         ]
       },
       {
@@ -47,25 +27,12 @@
         "id": "@shopgate/magento-cart",
         "path": "@shopgate/magento-cart/products/requestParentProductsFromMagento.js",
         "input": [
-          {
-            "key": "productIds",
-            "id": "1"
-          },
-          {
-            "key": "products",
-            "id": "100"
-          },
-          {
-            "key": "token",
-            "id": "140"
-          }
+          {"key": "productIds", "id": "1"},
+          {"key": "products", "id": "100"},
+          {"key": "token","id": "140"}
         ],
         "output": [
-          {
-            "key": "magentoParentProducts",
-            "id": "150",
-            "optional": true
-          }
+          {"key": "magentoParentProducts", "id": "150", "optional": true}
         ]
       },
       {
@@ -73,21 +40,11 @@
         "id": "@shopgate/magento-cart",
         "path": "@shopgate/magento-cart/products/appendProductVariantsMetadataToProductList.js",
         "input": [
-          {
-            "key": "products",
-            "id": "100"
-          },
-          {
-            "key": "magentoParentProducts",
-            "id": "150",
-            "optional": true
-          }
+          {"key": "products", "id": "100"},
+          {"key": "magentoParentProducts", "id": "150", "optional": true}
         ],
         "output": [
-          {
-            "key": "products",
-            "id": "100"
-          }
+          {"key": "products", "id": "100"}
         ]
       },
       {
@@ -95,16 +52,10 @@
         "id": "@shopgate/magento-favorites",
         "path": "@shopgate/magento-favorites/lib/transformItemId.js",
         "input": [
-          {
-            "key": "products",
-            "id": "100"
-          }
+          {"key": "products", "id": "100"}
         ],
         "output": [
-          {
-            "key": "products",
-            "id": "100"
-          }
+          {"key": "products", "id": "100"}
         ]
       },
       {
@@ -123,21 +74,11 @@
         "id": "@shopgate/magento-favorites",
         "path": "@shopgate/magento-favorites/lib/magento/customer/getWishlistId.js",
         "input": [
-          {
-            "key": "token",
-            "id": "140"
-          },
-          {
-            "key": "wishlistId",
-            "id": "110",
-            "optional": true
-          }
+          {"key": "token", "id": "140"},
+          {"key": "wishlistId", "id": "110", "optional": true}
         ],
         "output": [
-          {
-            "key": "wishlistId",
-            "id": "110"
-          }
+          {"key": "wishlistId", "id": "110"}
         ]
       },
       {
@@ -145,18 +86,9 @@
         "id": "@shopgate/magento-favorites",
         "path": "@shopgate/magento-favorites/lib/magento/customer/addItems.js",
         "input": [
-          {
-            "key": "token",
-            "id": "140"
-          },
-          {
-            "key": "wishlistId",
-            "id": "110"
-          },
-          {
-            "key": "transformedProducts",
-            "id": "150"
-          }
+          {"key": "token", "id": "140"},
+          {"key": "wishlistId", "id": "110"},
+          {"key": "transformedProducts", "id": "150"}
         ],
         "output": []
       }
