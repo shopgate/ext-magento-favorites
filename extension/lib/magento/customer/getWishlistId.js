@@ -15,8 +15,8 @@ module.exports = async (context, input) => {
   const wishlists = await request.send(wishlistsEndpointUrl, 'Request to Magento: getWishlists')
   if (wishlists.length === 0) {
     const params = { visibility: 'private' }
-    const result = await request.send(wishlistsEndpointUrl, 'Request to Magento: createWishlists', 'POST', params)
-    return { wishlistId: result.wishlistId }
+    const { wishlistId } = await request.send(wishlistsEndpointUrl, 'Request to Magento: createWishlists', 'POST', params)
+    return { wishlistId }
   }
   const wishlistId = wishlists[0].wishlist_id
   return { wishlistId }
