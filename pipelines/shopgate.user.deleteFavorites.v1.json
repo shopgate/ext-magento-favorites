@@ -3,10 +3,7 @@
   "pipeline": {
     "id": "shopgate.user.deleteFavorites.v1",
     "input": [
-      {
-        "id": "1",
-        "key": "productId"
-      }
+      {"id": "1", "key": "productId"}
     ],
     "steps": [
       {
@@ -15,10 +12,7 @@
         "trusted": true,
         "input": [],
         "output": [
-          {
-            "key": "token",
-            "id": "100"
-          }
+          {"key": "token", "id": "100"}
         ]
       },
       {
@@ -26,16 +20,10 @@
         "path": "@shopgate/favorites/convertToArray.js",
         "type": "extension",
         "input": [
-          {
-            "id": "1",
-            "key": "productId"
-          }
+          {"id": "1", "key": "productId"}
         ],
         "output": [
-          {
-            "id": "1",
-            "key": "productIds"
-          }
+          {"id": "1", "key": "productIds"}
         ]
       },
       {
@@ -44,10 +32,7 @@
         "type": "extension",
         "input": [],
         "output": [
-          {
-            "id": "10",
-            "key": "userId"
-          }
+          {"id": "10", "key": "userId"}
         ]
       },
       {
@@ -56,10 +41,7 @@
           "path": "@shopgate/favorites/anonymous/deleteItem.js",
           "type": "extension",
           "input": [
-            {
-              "id": "1",
-              "key": "productIds"
-            }
+            {"id": "1", "key": "productIds"}
           ],
           "output": []
         },
@@ -68,29 +50,18 @@
           "path": "@shopgate/magento-favorites/lib/magento/customer/deleteItems.js",
           "type": "extension",
           "input": [
-            {
-              "id": "1",
-              "key": "productIds"
-            },
-            {
-              "key": "token",
-              "id": "100"
-            }
+            {"id": "1", "key": "productIds"},
+            {"key": "token", "id": "100"}
           ],
           "output": []
         },
         "type": "conditional",
         "input": [
-          {
-            "id": "10",
-            "key": "userId"
-          }
+          {"id": "10", "key": "userId"}
         ],
         "expression": {
           "ok": [
-            {
-              "name": "userId"
-            }
+            {"name": "userId"}
           ]
         }
       },
