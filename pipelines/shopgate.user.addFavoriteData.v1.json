@@ -1,0 +1,97 @@
+{
+  "version": "1",
+  "pipeline": {
+    "id": "shopgate.user.addFavoriteData.v1",
+    "public": true,
+    "input": [
+      {"key": "productIds", "id": "1"},
+      {"key": "products", "id": "100"},
+      {"key": "wishlistId", "id": "110", "optional": true}
+    ],
+    "output": [
+      {"key": "magentoParentProducts", "id": "150", "optional": true},
+      {"key": "products", "id": "100"}
+    ],
+    "steps": [
+      {
+        "type": "pipeline",
+        "id": "shopgate.general.getToken.v1",
+        "trusted": true,
+        "input": [],
+        "output": [
+          {"key": "token", "id": "140"}
+        ]
+      },
+      {
+        "type": "extension",
+        "id": "@shopgate/magento-cart",
+        "path": "@shopgate/magento-cart/products/requestParentProductsFromMagento.js",
+        "input": [
+          {"key": "productIds", "id": "1"},
+          {"key": "products", "id": "100"},
+          {"key": "token","id": "140"}
+        ],
+        "output": [
+          {"key": "magentoParentProducts", "id": "150", "optional": true}
+        ]
+      },
+      {
+        "type": "extension",
+        "id": "@shopgate/magento-cart",
+        "path": "@shopgate/magento-cart/products/appendProductVariantsMetadataToProductList.js",
+        "input": [
+          {"key": "products", "id": "100"},
+          {"key": "magentoParentProducts", "id": "150", "optional": true}
+        ],
+        "output": [
+          {"key": "products", "id": "100"}
+        ]
+      },
+      {
+        "type": "extension",
+        "id": "@shopgate/magento-favorites",
+        "path": "@shopgate/magento-favorites/lib/transformItemId.js",
+        "input": [
+          {"key": "products", "id": "100"}
+        ],
+        "output": [
+          {"key": "products", "id": "100"}
+        ]
+      },
+      {
+        "type": "extension",
+        "id": "@shopgate/magento-cart",
+        "path": "@shopgate/magento-cart/cart/createProductCartItemList.js",
+        "input": [
+          {"key": "products", "id": "100"}
+        ],
+        "output": [
+          {"key": "transformedProducts", "id": "150"}
+        ]
+      },
+      {
+        "type": "extension",
+        "id": "@shopgate/magento-favorites",
+        "path": "@shopgate/magento-favorites/lib/magento/customer/getWishlistId.js",
+        "input": [
+          {"key": "token", "id": "140"},
+          {"key": "wishlistId", "id": "110", "optional": true}
+        ],
+        "output": [
+          {"key": "wishlistId", "id": "110"}
+        ]
+      },
+      {
+        "type": "extension",
+        "id": "@shopgate/magento-favorites",
+        "path": "@shopgate/magento-favorites/lib/magento/customer/addItems.js",
+        "input": [
+          {"key": "token", "id": "140"},
+          {"key": "wishlistId", "id": "110"},
+          {"key": "transformedProducts", "id": "150"}
+        ],
+        "output": []
+      }
+    ]
+  }
+}

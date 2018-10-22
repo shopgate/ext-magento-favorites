@@ -293,3 +293,14 @@
  * @property {string} use_config_notify_stock_qty
  * @property {string} use_config_qty_increments
  */
+
+/**
+ * @typedef {Object} MagentoResponseWishlistItem
+ * @property {string} wishlist_id - id of the wishlist
+ * @property {string} customer_id - id of the customer
+ * @property {string} shared - is shared wishlist
+ * @property {string} sharing_code - sharing code of wishlist
+ * @property {string} updated_at
+ * @property {string} name - name of the wishlist
+ * @property {string} visibility - visibility of the wishlist
+ */
