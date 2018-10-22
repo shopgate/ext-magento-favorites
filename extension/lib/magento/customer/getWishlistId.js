@@ -6,6 +6,9 @@ const MagentoRequest = require('../Request')
  * @returns {Promise<{wishlistId: string}>}
  */
 module.exports = async (context, input) => {
+  if (input.wishlistId) {
+    return input.wishlistId
+  }
   const request = new MagentoRequest(context, input.token)
   const wishlistIdsEndpointUrl = `${context.config.magentoUrl}/wishlists`
   /**

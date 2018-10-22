@@ -11,6 +11,11 @@
       {
         "key": "products",
         "id": "100"
+      },
+      {
+        "key": "wishlistId",
+        "id": "110",
+        "optional": true
       }
     ],
     "output": [
@@ -121,6 +126,11 @@
           {
             "key": "token",
             "id": "140"
+          },
+          {
+            "key": "wishlistId",
+            "id": "110",
+            "optional": true
           }
         ],
         "output": [
