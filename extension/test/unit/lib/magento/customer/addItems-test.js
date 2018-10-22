@@ -33,12 +33,12 @@ describe('magento/customer: addItems step', () => {
       }
     }
   })
-  it('Test that getWishlist returns the first exist wischlistId', async () => {
+  it('Should return the first existing wischlistId', async () => {
     nock(magentoUrl).get(path).reply(200, [{ wishlist_id: 2 }, { wishlist_id: 1 }])
     const response = await getWishlistId(context, input)
     assert.deepStrictEqual(response, { wishlistId: 2 })
   })
-  it('Test that "transformItemId" adds the "productId" key based on id', async () => {
+  it('Should return a "productId" key based on the "id" key', async () => {
     const input = {
       products:
         [{
