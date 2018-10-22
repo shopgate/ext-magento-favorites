@@ -293,3 +293,18 @@
  * @property {string} use_config_notify_stock_qty
  * @property {string} use_config_qty_increments
  */
+
+/**
+ * @typedef {MagentoResponseWhishlistItem[]} MagentoResponseWhishlists
+ */
+
+/**
+ * @typedef {Object} MagentoResponseWhishlistItem
+ * @property {string} wishlist_id - id of the whislist
+ * @property {string} customer_id - id of the customer
+ * @property {string} shared - is shared whishlist
+ * @property {string} sharing_code - sharing code of whishlist
+ * @property {string} updated_at
+ * @property {string} name - name of the whishlist
+ * @property {string} visibility - visibility of the whishlist
+ */
