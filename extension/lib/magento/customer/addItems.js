@@ -16,6 +16,6 @@ module.exports = async (context, input) => {
 
   Object.entries(response.wishlistItemIds).forEach(entry => {
     wishlistItemIdMapping[entry[0]] = entry[1]
-  });
+  })
   context.storage.user.set('wishlistItemIdMapping', wishlistItemIdMapping)
 }
