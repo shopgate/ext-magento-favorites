@@ -1,7 +1,7 @@
 const MagentoRequest = require('../Request')
 
 /**
- * @param {Object} context
+ * @param {StepContext} context
  * @param {Object} input
  * @returns {Promise<{wishlistId: string}>}
  */
