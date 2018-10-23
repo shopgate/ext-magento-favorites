@@ -3,7 +3,7 @@
   "pipeline": {
     "id": "shopgate.user.deleteFavorites.v1",
     "input": [
-      {"id": "1", "key": "productId"}
+      {"key": "productId", "id": "1"}
     ],
     "steps": [
       {
@@ -20,10 +20,10 @@
         "path": "@shopgate/favorites/convertToArray.js",
         "type": "extension",
         "input": [
-          {"id": "1", "key": "productId"}
+          {"key": "productId", "id": "1"}
         ],
         "output": [
-          {"id": "1", "key": "productIds"}
+          {"key": "productIds", "id": "1"}
         ]
       },
       {
@@ -32,7 +32,7 @@
         "type": "extension",
         "input": [],
         "output": [
-          {"id": "10", "key": "userId"}
+          {"key": "userId", "id": "10"}
         ]
       },
       {
@@ -41,23 +41,22 @@
           "path": "@shopgate/favorites/anonymous/deleteItem.js",
           "type": "extension",
           "input": [
-            {"id": "1", "key": "productIds"}
+            {"key": "productIds", "id": "1"}
           ],
           "output": []
         },
         "then": {
-          "id": "@shopgate/magento-favorites",
-          "path": "@shopgate/magento-favorites/lib/magento/customer/deleteItems.js",
-          "type": "extension",
+          "type": "pipeline",
+          "id": "shopgate.user.deleteCustomerFavorites.v1",
           "input": [
-            {"id": "1", "key": "productIds"},
+            {"key": "productIds", "id": "1"},
             {"key": "token", "id": "100"}
           ],
           "output": []
         },
         "type": "conditional",
         "input": [
-          {"id": "10", "key": "userId"}
+          {"key": "userId", "id": "10"}
         ],
         "expression": {
           "ok": [

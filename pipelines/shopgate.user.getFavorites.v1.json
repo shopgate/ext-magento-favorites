@@ -25,25 +25,17 @@
         "path": "@shopgate/favorites/user/getUserId.js",
         "input": [],
         "output": [
-          {
-            "key": "userId",
-            "id": "20"
-          }
+          {"key": "userId", "id": "20"}
         ]
       },
       {
         "type": "conditional",
         "input": [
-          {
-            "key": "userId",
-            "id": "20"
-          }
+          {"key": "userId", "id": "20"}
         ],
         "expression": {
           "ok": [
-            {
-              "name": "userId"
-            }
+            {"name": "userId"}
           ]
         },
         "then": {
@@ -51,16 +43,10 @@
           "id": "@shopgate/magento-favorites",
           "path": "@shopgate/magento-favorites/lib/magento/customer/getItems.js",
           "input": [
-            {
-              "key": "token",
-              "id": "140"
-            }
+            {"key": "token","id": "140"}
           ],
           "output": [
-            {
-              "key": "productIds",
-              "id": "120"
-            }
+            {"key": "productIds", "id": "120"}
           ]
         },
         "else": {
@@ -69,10 +55,7 @@
           "path": "@shopgate/favorites/anonymous/getItems.js",
           "input": [],
           "output": [
-            {
-              "key": "productIds",
-              "id": "120"
-            }
+            {"key": "productIds", "id": "120"}
           ]
         }
       },
