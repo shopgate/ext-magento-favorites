@@ -1,31 +1,66 @@
 {
   "info": {
-    "_postman_id": "9024cb3f-692e-4d97-b911-ec79e52f3890",
+    "_postman_id": "039c4573-fd31-4154-8fa7-fe1972a8c4c9",
     "name": "Magento Connect - Favorites",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
     {
-      "name": "getFavorites",
+      "name": "Guest",
       "item": [
         {
-          "name": "Get: Guest favorites",
+          "name": "Logout",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "73f7922e-ca38-4f28-855f-6db6b6e0dd01",
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{domain}}{{endpoint_user_logout}}",
+              "host": [
+                "{{domain}}{{endpoint_user_logout}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Check favorites is empty",
           "event": [
             {
               "listen": "test",
               "script": {
                 "id": "0e9d63aa-87f7-4923-b737-5e15e8116538",
-                "type": "text/javascript",
                 "exec": [
-                  "pm.test(\"Status code is 200\", function () {",
+                  "pm.test('Status code is 200', function () {",
                   "    pm.response.to.have.status(200);",
                   "});",
                   "",
-                  "pm.test(\"Response have the correct format\", () => {",
+                  "pm.test('No items exist in the fav. list', () => {",
                   "    const response = pm.response.json();",
                   "    pm.expect(response.products).to.be.a('array').to.be.empty;",
                   "});"
-                ]
+                ],
+                "type": "text/javascript"
               }
             }
           ],
@@ -39,7 +74,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n\t\n}"
+              "raw": "{}"
             },
             "url": {
               "raw": "{{domain}}{{endpoint_user_favorites_get}}",
@@ -51,18 +86,18 @@
           "response": []
         },
         {
-          "name": "Login",
+          "name": "Add config product to list",
           "event": [
             {
               "listen": "test",
               "script": {
-                "id": "73f7922e-ca38-4f28-855f-6db6b6e0dd01",
-                "type": "text/javascript",
+                "id": "75ebdfa1-4830-4477-b86b-1f4d001fedbc",
                 "exec": [
-                  "pm.test(\"Status code is 200\", function () {",
+                  "pm.test('Status code is 200', function () {",
                   "    pm.response.to.have.status(200);",
                   "});"
-                ]
+                ],
+                "type": "text/javascript"
               }
             }
           ],
@@ -76,35 +111,36 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n\t\"strategy\": \"basic\",\n\t\"parameters\": {\n\t\t\"login\": \"{{username}}\",\n\t\t\"password\": \"{{password}}\"\n\t}\n}"
+              "raw": "{\n\t\"productId\" : \"422\"\n}"
             },
             "url": {
-              "raw": "{{domain}}{{endpoint_user_login}}",
+              "raw": "{{domain}}{{endpoint_user_favorites_add}}",
               "host": [
-                "{{domain}}{{endpoint_user_login}}"
+                "{{domain}}{{endpoint_user_favorites_add}}"
               ]
             }
           },
           "response": []
         },
         {
-          "name": "Get: Customer favorites",
+          "name": "Confirm product added",
           "event": [
             {
               "listen": "test",
               "script": {
                 "id": "5cd67dd2-faf6-4720-8031-cbf3a65d0a32",
-                "type": "text/javascript",
                 "exec": [
-                  "pm.test(\"Status code is 200\", function () {",
+                  "pm.test('Status code is 200', function () {",
                   "    pm.response.to.have.status(200);",
                   "});",
                   "",
-                  "pm.test(\"Response have the correct format\", () => {",
+                  "pm.test('Check that the config. is properly added', () => {",
                   "    const response = pm.response.json();",
                   "    pm.expect(response.products).to.be.a('array').to.not.be.empty;",
+                  "    pm.expect(response.products[0].id).to.eq('422');",
                   "});"
-                ]
+                ],
+                "type": "text/javascript"
               }
             }
           ],
@@ -130,396 +166,18 @@
           "response": []
         },
         {
-          "name": "Logout",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "id": "9ba46b74-c970-4d65-a134-f21d6d1ff448",
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test(\"Status code is 200\", function () {",
-                  "    pm.response.to.have.status(200);",
-                  "});"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n}"
-            },
-            "url": {
-              "raw": "{{domain}}{{endpoint_user_logout}}",
-              "host": [
-                "{{domain}}"
-              ],
-              "path": [
-                "trustedPipelines",
-                "shopgate.user.logoutUser.v1"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "addFavorites",
-      "item": [
-        {
-          "name": "Login",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "id": "73f7922e-ca38-4f28-855f-6db6b6e0dd01",
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test(\"Status code is 200\", function () {",
-                  "    pm.response.to.have.status(200);",
-                  "});"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n\t\"strategy\": \"basic\",\n\t\"parameters\": {\n\t\t\"login\": \"{{username}}\",\n\t\t\"password\": \"{{password}}\"\n\t}\n}"
-            },
-            "url": {
-              "raw": "{{domain}}{{endpoint_user_login}}",
-              "host": [
-                "{{domain}}{{endpoint_user_login}}"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get: Customer favorites list length",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "id": "6d818239-54c3-43f6-84a4-81c64ee9c01e",
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test(\"Status code is 200\", function () {",
-                  "    pm.response.to.have.status(200);",
-                  "});",
-                  "",
-                  "const response = pm.response.json();",
-                  "pm.environment.set(\"wishlist-length\", response.products.length);"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{}"
-            },
-            "url": {
-              "raw": "{{domain}}{{endpoint_user_favorites_get}}",
-              "host": [
-                "{{domain}}{{endpoint_user_favorites_get}}"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Add: Customer favorite",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "id": "75ebdfa1-4830-4477-b86b-1f4d001fedbc",
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test(\"Status code is 200\", function () {",
-                  "    pm.response.to.have.status(200);",
-                  "});"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n\t\"productId\" : \"337\"\n}"
-            },
-            "url": {
-              "raw": "{{domain}}{{endpoint_user_favorites_add}}",
-              "host": [
-                "{{domain}}{{endpoint_user_favorites_add}}"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Add: Customer another favorite",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "id": "75ebdfa1-4830-4477-b86b-1f4d001fedbc",
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test(\"Status code is 200\", function () {",
-                  "    pm.response.to.have.status(200);",
-                  "});",
-                  "",
-                  "pm.test(\"Response have the correct format\", () => {",
-                  "    const response = pm.response.json();",
-                  "    pm.expect(response).to.be.a('object').to.be.empty;",
-                  "});"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n\t\"productId\" : \"338\"\n}"
-            },
-            "url": {
-              "raw": "{{domain}}{{endpoint_user_favorites_add}}",
-              "host": [
-                "{{domain}}{{endpoint_user_favorites_add}}"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get: Customer favorites list length increased",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "id": "187b2572-d9a1-4bec-968f-6cce5ca18281",
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test(\"Status code is 200\", function () {",
-                  "    pm.response.to.have.status(200);",
-                  "});",
-                  "",
-                  "const response = pm.response.json();",
-                  "pm.test(\"Response have the correct format\", () => {",
-                  "    pm.expect(response.products).to.be.a('array').to.not.be.empty;",
-                  "});",
-                  "",
-                  "pm.test(\"One wishlist item was added\", () => {",
-                  "    pm.expect(response.products.length).to.eql(pm.environment.get(\"wishlist-length\")+2);",
-                  "});",
-                  "",
-                  "pm.environment.unset(\"wishlist-length\");"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{}"
-            },
-            "url": {
-              "raw": "{{domain}}{{endpoint_user_favorites_get}}",
-              "host": [
-                "{{domain}}{{endpoint_user_favorites_get}}"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Logout",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "id": "9ba46b74-c970-4d65-a134-f21d6d1ff448",
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test(\"Status code is 200\", function () {",
-                  "    pm.response.to.have.status(200);",
-                  "});"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n}"
-            },
-            "url": {
-              "raw": "{{domain}}{{endpoint_user_logout}}",
-              "host": [
-                "{{domain}}"
-              ],
-              "path": [
-                "trustedPipelines",
-                "shopgate.user.logoutUser.v1"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "deleteFavorites",
-      "item": [
-        {
-          "name": "Login",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "id": "73f7922e-ca38-4f28-855f-6db6b6e0dd01",
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test(\"Status code is 200\", function () {",
-                  "    pm.response.to.have.status(200);",
-                  "});"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n\t\"strategy\": \"basic\",\n\t\"parameters\": {\n\t\t\"login\": \"{{username}}\",\n\t\t\"password\": \"{{password}}\"\n\t}\n}"
-            },
-            "url": {
-              "raw": "{{domain}}{{endpoint_user_login}}",
-              "host": [
-                "{{domain}}{{endpoint_user_login}}"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get: Customer favorites list length",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "id": "90a8263a-48b7-4818-a4ab-ab450821a99a",
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test(\"Status code is 200\", function () {",
-                  "    pm.response.to.have.status(200);",
-                  "});",
-                  "",
-                  "const response = pm.response.json();",
-                  "pm.test(\"Response have the correct format\", () => {",
-                  "    pm.expect(response.products).to.be.a('array').to.not.be.empty;",
-                  "});",
-                  "",
-                  "pm.environment.set(\"wishlist-length\", response.products.length);",
-                  "pm.environment.set(\"wishlist-product-id\", response.products[0].id);"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{}"
-            },
-            "url": {
-              "raw": "{{domain}}{{endpoint_user_favorites_get}}",
-              "host": [
-                "{{domain}}{{endpoint_user_favorites_get}}"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Delete: not existing customer favorite",
+          "name": "Delete non-existing",
           "event": [
             {
               "listen": "test",
               "script": {
                 "id": "28ee627d-ac35-409e-ad73-20d1f25881b4",
-                "type": "text/javascript",
                 "exec": [
-                  "pm.test(\"Status code is 200\", function () {",
+                  "pm.test('Status code is 200', function () {",
                   "    pm.response.to.have.status(200);",
                   "});"
-                ]
+                ],
+                "type": "text/javascript"
               }
             }
           ],
@@ -545,27 +203,24 @@
           "response": []
         },
         {
-          "name": "Get: unchanged customer favorites",
+          "name": "Check nothing changed",
           "event": [
             {
               "listen": "test",
               "script": {
                 "id": "8e37c9ab-dc2e-4fd9-9505-398a99ab5d47",
-                "type": "text/javascript",
                 "exec": [
-                  "pm.test(\"Status code is 200\", function () {",
+                  "pm.test('Status code is 200', function () {",
                   "    pm.response.to.have.status(200);",
                   "});",
                   "",
-                  "const response = pm.response.json();",
-                  "pm.test(\"Response have the correct format\", () => {",
+                  "pm.test('Check that nothing changed with false deletion', () => {",
+                  "    const response = pm.response.json();",
                   "    pm.expect(response.products).to.be.a('array').to.not.be.empty;",
-                  "});",
-                  "",
-                  "pm.test(\"Number of items did not change\", () => {",
-                  "    pm.expect(response.products.length).to.eql(pm.environment.get(\"wishlist-length\"));",
+                  "    pm.expect(response.products[0].id).to.eq('422');",
                   "});"
-                ]
+                ],
+                "type": "text/javascript"
               }
             }
           ],
@@ -591,18 +246,18 @@
           "response": []
         },
         {
-          "name": "Delete: Customer favorite",
+          "name": "Delete config product",
           "event": [
             {
               "listen": "test",
               "script": {
                 "id": "bb1250ea-8604-4e3b-9d03-c6d628f576a0",
-                "type": "text/javascript",
                 "exec": [
-                  "pm.test(\"Status code is 200\", function () {",
+                  "pm.test('Status code is 200', function () {",
                   "    pm.response.to.have.status(200);",
                   "});"
-                ]
+                ],
+                "type": "text/javascript"
               }
             }
           ],
@@ -616,7 +271,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n\t\"productId\": \"{{wishlist-product-id}}\"\n}"
+              "raw": "{\n\t\"productId\": \"422\"\n}"
             },
             "url": {
               "raw": "{{domain}}{{endpoint_user_favorites_delete}}",
@@ -628,34 +283,107 @@
           "response": []
         },
         {
-          "name": "Get: Customer favorites list length decreased",
+          "name": "Check favorites is empty",
           "event": [
             {
               "listen": "test",
               "script": {
-                "id": "0799ce9e-c88a-42d4-b599-bd83e1b671de",
-                "type": "text/javascript",
+                "id": "0e9d63aa-87f7-4923-b737-5e15e8116538",
                 "exec": [
-                  "pm.test(\"Status code is 200\", function () {",
+                  "pm.test('Status code is 200', function () {",
                   "    pm.response.to.have.status(200);",
                   "});",
                   "",
-                  "const response = pm.response.json();",
-                  "pm.test(\"Response have the correct format\", () => {",
-                  "    pm.expect(response.products).to.be.a('array').to.not.be.empty;",
+                  "pm.test('No items exist in the fav. list', () => {",
+                  "    const response = pm.response.json();",
+                  "    pm.expect(response.products).to.be.a('array').to.be.empty;",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{domain}}{{endpoint_user_favorites_get}}",
+              "host": [
+                "{{domain}}{{endpoint_user_favorites_get}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Customer",
+      "item": [
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "73f7922e-ca38-4f28-855f-6db6b6e0dd01",
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"strategy\": \"basic\",\n\t\"parameters\": {\n\t\t\"login\": \"{{username}}\",\n\t\t\"password\": \"{{password}}\"\n\t}\n}"
+            },
+            "url": {
+              "raw": "{{domain}}{{endpoint_user_login}}",
+              "host": [
+                "{{domain}}{{endpoint_user_login}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Check favorites is empty",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "5cd67dd2-faf6-4720-8031-cbf3a65d0a32",
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
                   "});",
                   "",
-                  "pm.test(\"One wishlist item was removed\", () => {",
-                  "    pm.expect(response.products.length).to.eql(pm.environment.get(\"wishlist-length\")-1);",
-                  "});",
-                  "",
-                  "pm.test(\"The correct wishlist item removed\", () => {",
-                  "    pm.expect(response.products[0].id).to.not.eql(pm.environment.get(\"wishlist-product-id\"));",
-                  "});",
-                  "",
-                  "pm.environment.unset(\"wishlist-product-id\");",
-                  "pm.environment.unset(\"wishlist-length\");"
-                ]
+                  "pm.test('Response has no items', () => {",
+                  "    const response = pm.response.json();",
+                  "    pm.expect(response.products).to.be.a('array').to.be.empty;",
+                  "});"
+                ],
+                "type": "text/javascript"
               }
             }
           ],
@@ -681,18 +409,18 @@
           "response": []
         },
         {
-          "name": "Logout",
+          "name": "Add simple product to list",
           "event": [
             {
               "listen": "test",
               "script": {
-                "id": "9ba46b74-c970-4d65-a134-f21d6d1ff448",
-                "type": "text/javascript",
+                "id": "75ebdfa1-4830-4477-b86b-1f4d001fedbc",
                 "exec": [
-                  "pm.test(\"Status code is 200\", function () {",
+                  "pm.test('Status code is 200', function () {",
                   "    pm.response.to.have.status(200);",
                   "});"
-                ]
+                ],
+                "type": "text/javascript"
               }
             }
           ],
@@ -706,16 +434,214 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n}"
+              "raw": "{\n\t\"productId\" : \"554\"\n}"
             },
             "url": {
-              "raw": "{{domain}}{{endpoint_user_logout}}",
+              "raw": "{{domain}}{{endpoint_user_favorites_add}}",
               "host": [
-                "{{domain}}"
-              ],
-              "path": [
-                "trustedPipelines",
-                "shopgate.user.logoutUser.v1"
+                "{{domain}}{{endpoint_user_favorites_add}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Confirm product added",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "5cd67dd2-faf6-4720-8031-cbf3a65d0a32",
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response has the correct product', () => {",
+                  "    const response = pm.response.json();",
+                  "    pm.expect(response.products).to.be.a('array').to.not.be.empty;",
+                  "    pm.expect(response.products[0].id).to.eq('554');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{domain}}{{endpoint_user_favorites_get}}",
+              "host": [
+                "{{domain}}{{endpoint_user_favorites_get}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete non-existing",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "28ee627d-ac35-409e-ad73-20d1f25881b4",
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"productId\": \"123456789\"\n}"
+            },
+            "url": {
+              "raw": "{{domain}}{{endpoint_user_favorites_delete}}",
+              "host": [
+                "{{domain}}{{endpoint_user_favorites_delete}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Check nothing changed",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "8e37c9ab-dc2e-4fd9-9505-398a99ab5d47",
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Check that nothing changed with false deletion', () => {",
+                  "    const response = pm.response.json();",
+                  "    pm.expect(response.products).to.be.a('array').to.not.be.empty;",
+                  "    pm.expect(response.products[0].id).to.eq('554');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{domain}}{{endpoint_user_favorites_get}}",
+              "host": [
+                "{{domain}}{{endpoint_user_favorites_get}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete simple product",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "bb1250ea-8604-4e3b-9d03-c6d628f576a0",
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"productId\": \"554\"\n}"
+            },
+            "url": {
+              "raw": "{{domain}}{{endpoint_user_favorites_delete}}",
+              "host": [
+                "{{domain}}{{endpoint_user_favorites_delete}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Check favorites is empty",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "0e9d63aa-87f7-4923-b737-5e15e8116538",
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('No items exist in the fav. list', () => {",
+                  "    const response = pm.response.json();",
+                  "    pm.expect(response.products).to.be.a('array').to.be.empty;",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{domain}}{{endpoint_user_favorites_get}}",
+              "host": [
+                "{{domain}}{{endpoint_user_favorites_get}}"
               ]
             }
           },
