@@ -39,9 +39,8 @@
           ]
         },
         "then": {
-          "type": "extension",
-          "id": "@shopgate/magento-favorites",
-          "path": "@shopgate/magento-favorites/lib/magento/customer/getItems.js",
+          "type": "pipeline",
+          "id": "shopgate.user.getCustomerFavorites.v1",
           "input": [
             {"key": "token","id": "140"}
           ],

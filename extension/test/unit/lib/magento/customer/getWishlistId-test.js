@@ -2,9 +2,9 @@ const assert = require('assert')
 const request = require('request-promise-native')
 const nock = require('nock')
 
-const step = require('../../../../../lib/magento/customer/getItems')
+const step = require('../../../../../lib/magento/customer/getWishlistId')
 
-describe('magento/customer: getItems step', () => {
+describe('magento/customer: getWishlistId step', () => {
   let input = {}
   let context = {}
   const magentoUrl = 'http://localhost/shopgate/v2'
@@ -12,8 +12,7 @@ describe('magento/customer: getItems step', () => {
 
   beforeEach(() => {
     input = {
-      token: 'testToken',
-      wishlistId: '42'
+      token: 'testToken'
     }
 
     context = {
@@ -44,9 +43,16 @@ describe('magento/customer: getItems step', () => {
     }
   })
 
-  it('Returns the correct product ids', async () => {
-    nock(magentoUrl).get(`${path}/42/items`).reply(200, [{ product_id: '20' }, { product_id: '10' }])
+  it('Creates a new Wishlist, if none exists', async () => {
+    nock(magentoUrl).get(path).reply(200, [])
+    nock(magentoUrl).post(path).reply(200, { wishlistId: 5 })
     const response = await step(context, input)
-    assert.deepStrictEqual(response, { productIds: ['20', '10'] })
+    assert.deepStrictEqual(response, { wishlistId: 5 })
+  })
+
+  it('Returns the correct Wishlist id', async () => {
+    nock(magentoUrl).get(path).reply(200, [{ wishlist_id: 42 }, { wishlist_id: 23 }])
+    const response = await step(context, input)
+    assert.deepStrictEqual(response, { wishlistId: 42 })
   })
 })

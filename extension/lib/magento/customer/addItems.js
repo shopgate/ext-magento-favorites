@@ -4,7 +4,7 @@ const MagentoRequest = require('../Request')
  * @param {StepContext} context
  * @param {Object} input
  * @param {string} input.token - user token for authentication
- * @param {string[]} input.wishlistId - array of ids of the products to remove
+ * @param {string} input.wishlistId - id of the wishlist to modify
  * @param {array} input.transformedProducts - user token for authentication
  * @returns {Promise<{productIds: string[]}>}
  */

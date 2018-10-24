@@ -3,7 +3,6 @@ const request = require('request-promise-native')
 const nock = require('nock')
 const sinon = require('sinon')
 
-const getWishlistId = require('../../../../../lib/magento/customer/getWishlistId')
 const addItems = require('../../../../../lib/magento/customer/addItems')
 const transformItemId = require('../../../../../lib/transformItemId')
 
@@ -42,11 +41,6 @@ describe('magento/customer: addItems step', () => {
         }
       }
     }
-  })
-  it('Should return the first existing wishlistId', async () => {
-    nock(magentoUrl).get(path).reply(200, [{ wishlist_id: 2 }, { wishlist_id: 1 }])
-    const response = await getWishlistId(context, input)
-    assert.deepStrictEqual(response, { wishlistId: 2 })
   })
   it('Should return a "productId" key based on the "id" key', async () => {
     const input = {
