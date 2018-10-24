@@ -31,8 +31,10 @@ describe('magento/customer: deleteItems step', () => {
       },
       storage: {
         user: {
-          get: () => {},
-          set: () => {}
+          map: {
+            get: () => {
+            }
+          }
         }
       }
     }
@@ -45,7 +47,7 @@ describe('magento/customer: deleteItems step', () => {
       productIds: ['123', '321']
     }
     const fake = sinon.fake.returns({ '123': '345', '321': '456' })
-    sinon.replace(context.storage.user, 'get', fake)
+    sinon.replace(context.storage.user.map, 'get', fake)
 
     const stub = sinon.stub(MageRequest.prototype, 'send').callsFake((var1, var2, var3) => {})
     await step(context, input)

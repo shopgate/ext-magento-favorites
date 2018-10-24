@@ -7,7 +7,7 @@ const MagentoRequest = require('../Request')
  * @param {string} input.token - user token for authentication
  */
 module.exports = async (context, input) => {
-  const wishlistItemIdMapping = await context.storage.user.get('wishlistItemIdMapping')
+  const wishlistItemIdMapping = await context.storage.user.map.get('wishlistItemIdMapping') || {}
   const wishlistItemIdsString = input.productIds.map(productId => wishlistItemIdMapping[productId]).toString()
 
   if (!wishlistItemIdsString) {

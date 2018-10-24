@@ -32,7 +32,11 @@ describe('magento/customer: getItems step', () => {
       },
       storage: {
         user: {
-          set: () => {
+          map: {
+            setItem: () => {
+            },
+            del: () => {
+            }
           }
         }
       }

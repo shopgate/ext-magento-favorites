@@ -3,6 +3,9 @@ const MagentoRequest = require('../Request')
 /**
  * @param {StepContext} context
  * @param {Object} input
+ * @param {string} input.token - user token for authentication
+ * @param {string[]} input.wishlistId - array of ids of the products to remove
+ * @param {array} input.transformedProducts - user token for authentication
  * @returns {Promise<{productIds: string[]}>}
  */
 module.exports = async (context, input) => {
@@ -12,10 +15,8 @@ module.exports = async (context, input) => {
   const wishlistItems = input.transformedProducts.map(({ product }) => product)
 
   const response = await request.send(wishlistAddItemEndpointUrl, 'addFavorites', 'POST', wishlistItems)
-  const wishlistItemIdMapping = await context.storage.user.get('wishlistItemIdMapping') || {}
 
   Object.entries(response.wishlistItemIds).forEach(entry => {
-    wishlistItemIdMapping[entry[0]] = entry[1]
+    context.storage.user.map.setItem('wishlistItemIdMapping', entry[0], entry[1])
   })
-  context.storage.user.set('wishlistItemIdMapping', wishlistItemIdMapping)
 }
