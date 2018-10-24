@@ -50,5 +50,6 @@ describe('magento/customer: deleteItems step', () => {
     const stub = sinon.stub(MageRequest.prototype, 'send').callsFake((var1, var2, var3) => {})
     await step(context, input)
     assert(stub.calledWith(`${magentoUrl}/wishlists/2/items?wishlistItemIds=345,456`, 'deleteFavorites', 'DELETE'))
+    stub.restore()
   })
 })
