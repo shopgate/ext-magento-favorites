@@ -17,5 +17,5 @@ module.exports = async (context, input) => {
   const request = new MagentoRequest(context, input.token)
   const itemFilter = `?wishlistItemIds=${wishlistItemIdsString}`
   const wishlistItemsEndpointUrl = `${context.config.magentoUrl}/wishlists/${input.wishlistId}/items${itemFilter}`
-  request.send(wishlistItemsEndpointUrl, 'Request to Magento: deleteFavorites', 'DELETE')
+  request.send(wishlistItemsEndpointUrl, 'deleteFavorites', 'DELETE')
 }
