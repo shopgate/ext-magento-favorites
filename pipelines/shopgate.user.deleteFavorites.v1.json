@@ -7,15 +7,6 @@
     ],
     "steps": [
       {
-        "type": "pipeline",
-        "id": "shopgate.general.getToken.v1",
-        "trusted": true,
-        "input": [],
-        "output": [
-          {"key": "token", "id": "100"}
-        ]
-      },
-      {
         "id": "@shopgate/favorites",
         "path": "@shopgate/favorites/convertToArray.js",
         "type": "extension",
@@ -49,8 +40,7 @@
           "type": "pipeline",
           "id": "shopgate.user.deleteCustomerFavorites.v1",
           "input": [
-            {"key": "productIds", "id": "1"},
-            {"key": "token", "id": "100"}
+            {"key": "productIds", "id": "1"}
           ],
           "output": []
         },
