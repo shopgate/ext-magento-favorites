@@ -40,6 +40,17 @@ describe('magento/customer: deleteItems step', () => {
     }
   })
 
+  it('Should not call the endpoint if there are no wishlist items', async () => {
+    input = {
+      ...input,
+      productIds: []
+    }
+    const requestSpy = sinon.spy(MageRequest.prototype, 'send')
+    await step(context, input)
+    sinon.assert.notCalled(requestSpy)
+    requestSpy.restore()
+  })
+
   it('Should call the correct endpoint with correct storage values', async () => {
     input = {
       ...input,
