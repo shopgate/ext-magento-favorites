@@ -42,7 +42,7 @@ describe('magento/customer: addItems step', () => {
     }
   })
   it('Should return a "productId" key based on the "id" key', async () => {
-    input.products = [ {id: '337'} ]
+    input.products = [{ id: '337' }]
 
     const result = await transformItemId(context, input)
     const resultItem = result.products.pop()
