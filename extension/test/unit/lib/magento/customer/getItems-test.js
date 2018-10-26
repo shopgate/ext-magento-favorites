@@ -49,4 +49,22 @@ describe('magento/customer: getItems step', () => {
     const response = await step(context, input)
     assert.deepStrictEqual(response, { productIds: ['20', '10'] })
   })
+
+  it('Returns the correct product ids of simple products based on a config', async () => {
+    nock(magentoUrl).get(`${path}/42/items`).reply(200, [{ product_id: '20' }, { product_id: '10', child_id: '30' }])
+    const response = await step(context, input)
+    assert.deepStrictEqual(response, { productIds: ['20', '10-30'] })
+  })
+
+  it('Returns the correct product ids of simple products based on a config with a empty child_id', async () => {
+    nock(magentoUrl).get(`${path}/42/items`).reply(200, [{ product_id: '20' }, { product_id: '10', child_id: '' }])
+    const response = await step(context, input)
+    assert.deepStrictEqual(response, { productIds: ['20', '10'] })
+  })
+
+  it('Returns the correct product ids of simple products based on a config with child_id null', async () => {
+    nock(magentoUrl).get(`${path}/42/items`).reply(200, [{ product_id: '20' }, { product_id: '10', child_id: null }])
+    const response = await step(context, input)
+    assert.deepStrictEqual(response, { productIds: ['20', '10'] })
+  })
 })
