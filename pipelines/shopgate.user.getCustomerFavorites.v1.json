@@ -1,0 +1,40 @@
+{
+  "version": "1",
+  "pipeline": {
+    "id": "shopgate.user.getCustomerFavorites.v1",
+    "input": [
+      {"key": "token", "id": "100"},
+      {"key": "wishlistId", "id": "110", "optional": true}
+    ],
+    "steps": [
+      {
+        "type": "extension",
+        "id": "@shopgate/magento-favorites",
+        "path": "@shopgate/magento-favorites/lib/magento/customer/getWishlistId.js",
+        "input": [
+          {"key": "token", "id": "100"},
+          {"key": "wishlistId", "id": "110", "optional": true}
+        ],
+        "output": [
+          {"key": "wishlistId", "id": "110"}
+        ]
+      },
+      {
+        "id": "@shopgate/magento-favorites",
+        "path": "@shopgate/magento-favorites/lib/magento/customer/getItems.js",
+        "type": "extension",
+        "input": [
+          {"key": "token", "id": "100"},
+          {"key": "wishlistId", "id": "110"}
+        ],
+        "output": [
+          {"key": "productIds", "id": "120"}
+        ]
+      }
+    ],
+    "output": [
+      {"key": "productIds", "id": "120"}
+    ],
+    "public": true
+  }
+}

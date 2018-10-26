@@ -1,0 +1,68 @@
+{
+  "version": "1",
+  "pipeline": {
+    "id": "shopgate.user.deleteFavorites.v1",
+    "input": [
+      {"key": "productId", "id": "1"}
+    ],
+    "steps": [
+      {
+        "id": "@shopgate/favorites",
+        "path": "@shopgate/favorites/convertToArray.js",
+        "type": "extension",
+        "input": [
+          {"key": "productId", "id": "1"}
+        ],
+        "output": [
+          {"key": "productIds", "id": "1"}
+        ]
+      },
+      {
+        "id": "@shopgate/favorites",
+        "path": "@shopgate/favorites/user/getUserId.js",
+        "type": "extension",
+        "input": [],
+        "output": [
+          {"key": "userId", "id": "10"}
+        ]
+      },
+      {
+        "else": {
+          "id": "@shopgate/favorites",
+          "path": "@shopgate/favorites/anonymous/deleteItem.js",
+          "type": "extension",
+          "input": [
+            {"key": "productIds", "id": "1"}
+          ],
+          "output": []
+        },
+        "then": {
+          "type": "pipeline",
+          "id": "shopgate.user.deleteCustomerFavorites.v1",
+          "input": [
+            {"key": "productIds", "id": "1"}
+          ],
+          "output": []
+        },
+        "type": "conditional",
+        "input": [
+          {"key": "userId", "id": "10"}
+        ],
+        "expression": {
+          "ok": [
+            {"name": "userId"}
+          ]
+        }
+      },
+      {
+        "id": "@shopgate/favorites",
+        "path": "@shopgate/favorites/catch/catchGenericError.js",
+        "type": "errorCatchExtension",
+        "input": [],
+        "output": []
+      }
+    ],
+    "output": [],
+    "public": true
+  }
+}

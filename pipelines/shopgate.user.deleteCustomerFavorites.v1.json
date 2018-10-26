@@ -1,0 +1,49 @@
+{
+  "version": "1",
+  "pipeline": {
+    "id": "shopgate.user.deleteCustomerFavorites.v1",
+    "input": [
+      {"key": "productIds", "id": "1"},
+      {"key": "wishlistId", "id": "110", "optional": true}
+    ],
+    "steps": [
+      {
+        "type": "pipeline",
+        "id": "shopgate.general.getToken.v1",
+        "trusted": true,
+        "input": [],
+        "output": [
+          {
+            "key": "token",
+            "id": "100"
+          }
+        ]
+      },
+      {
+        "type": "extension",
+        "id": "@shopgate/magento-favorites",
+        "path": "@shopgate/magento-favorites/lib/magento/customer/getWishlistId.js",
+        "input": [
+          {"key": "token", "id": "100"},
+          {"key": "wishlistId", "id": "110", "optional": true}
+        ],
+        "output": [
+          {"key": "wishlistId", "id": "110"}
+        ]
+      },
+      {
+        "id": "@shopgate/magento-favorites",
+        "path": "@shopgate/magento-favorites/lib/magento/customer/deleteItems.js",
+        "type": "extension",
+        "input": [
+          {"key": "productIds", "id": "1"},
+          {"key": "token", "id": "100"},
+          {"key": "wishlistId", "id": "110"}
+        ],
+        "output": []
+      }
+    ],
+    "output": [],
+    "public": true
+  }
+}
