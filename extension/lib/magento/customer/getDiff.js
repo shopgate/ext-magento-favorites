@@ -2,10 +2,9 @@ const { differenceWith, isEqual } = require('lodash')
 /**
  * @param {StepContext} context
  * @param {Object} input
- * @param {string} input.token - user token for authentication
- * @param {string} input.wishlistId - id of the wishlist to modify
- * @param {array} input.transformedProducts - user token for authentication
- * @returns {Promise<{productIds: string[]}>}
+ * @param {array} input.productIds - products to put
+ * @param {array} input.magentoProductIds - products currently on the magento fav list
+ * @returns {Promise<{productIds: Object}>}
  */
 module.exports = async (context, input) => {
   const { productIds: putProductIds, magentoProductIds: existProductIds } = input
