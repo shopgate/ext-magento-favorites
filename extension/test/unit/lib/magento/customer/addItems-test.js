@@ -10,7 +10,6 @@ describe('magento/customer: addItems step', () => {
   let input = {}
   let context = {}
   const magentoUrl = 'http://localhost/shopgate/v2'
-  const path = '/wishlists'
 
   beforeEach(() => {
     input = {
@@ -43,12 +42,8 @@ describe('magento/customer: addItems step', () => {
     }
   })
   it('Should return a "productId" key based on the "id" key', async () => {
-    const input = {
-      products:
-        [{
-          id: '337'
-        }]
-    }
+    input.products = [ {id: '337'} ]
+
     const result = await transformItemId(context, input)
     const resultItem = result.products.pop()
     assert.deepStrictEqual(resultItem, { id: '337', productId: '337' })
