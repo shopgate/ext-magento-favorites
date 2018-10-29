@@ -55,4 +55,10 @@ describe('magento/customer: getItems step', () => {
     const response = await step(context, input)
     assert.deepStrictEqual(response, { productIds: ['20', '10-30'] })
   })
+
+  it('Returns the correct product parent id if child_ids null', async () => {
+    nock(magentoUrl).get(`${path}/42/items`).reply(200, [{ product_id: '20' }, { product_id: '10', child_ids: null, type: 'configurable' }])
+    const response = await step(context, input)
+    assert.deepStrictEqual(response, { productIds: ['20', '10'] })
+  })
 })
