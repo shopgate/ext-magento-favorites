@@ -51,19 +51,25 @@ describe('magento/customer: getItems step', () => {
   })
 
   it('Returns the correct product ids of simple products based on a config', async () => {
-    nock(magentoUrl).get(`${path}/42/items`).reply(200, [{ product_id: '20' }, { product_id: '10', child_id: '30' }])
+    nock(magentoUrl).get(`${path}/42/items`).reply(200, [{ product_id: '20' }, { product_id: '10', child_ids: ['30'], type: 'configurable' }])
     const response = await step(context, input)
     assert.deepStrictEqual(response, { productIds: ['20', '10-30'] })
   })
 
   it('Returns the correct product ids of simple products based on a config with a empty child_id', async () => {
-    nock(magentoUrl).get(`${path}/42/items`).reply(200, [{ product_id: '20' }, { product_id: '10', child_id: '' }])
+    nock(magentoUrl).get(`${path}/42/items`).reply(200, [{ product_id: '20' }, { product_id: '10', child_ids: '', type: 'configurable' }])
     const response = await step(context, input)
     assert.deepStrictEqual(response, { productIds: ['20', '10'] })
   })
 
   it('Returns the correct product ids of simple products based on a config with child_id null', async () => {
-    nock(magentoUrl).get(`${path}/42/items`).reply(200, [{ product_id: '20' }, { product_id: '10', child_id: null }])
+    nock(magentoUrl).get(`${path}/42/items`).reply(200, [{ product_id: '20' }, { product_id: '10', child_ids: null, type: 'configurable' }])
+    const response = await step(context, input)
+    assert.deepStrictEqual(response, { productIds: ['20', '10'] })
+  })
+
+  it('Returns the parent product id in case the child_ids has more than one entries', async () => {
+    nock(magentoUrl).get(`${path}/42/items`).reply(200, [{ product_id: '20' }, { product_id: '10', child_ids: ['30', '40'], type: 'configurable' }])
     const response = await step(context, input)
     assert.deepStrictEqual(response, { productIds: ['20', '10'] })
   })
