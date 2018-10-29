@@ -14,7 +14,6 @@ module.exports = async (context, input) => {
   context.storage.user.map.del('wishlistItemIdMapping')
   const productIds = wishlistItems.map(item => {
     let { child_ids: childIds, type, product_id: productId } = item
-    let productId = productItemId
     if (type === 'configurable' && childIds && childIds.length === 1) {
       productId = `${productId}-${childIds[0]}`
     }
