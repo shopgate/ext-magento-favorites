@@ -62,8 +62,9 @@
           "type": "pipeline",
           "id": "shopgate.user.putCustomerFavorites.v1",
           "input": [
-            {"key": "putProductIds", "id": "1"},
-            {"key": "products", "id": "100"}
+            {"key": "favoriteList", "id": "100"},
+            {"key": "sgxsMeta", "id": "16"},
+            {"key": "productIds", "id": "1"}
           ],
           "output": []
         },
