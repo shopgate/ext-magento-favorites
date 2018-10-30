@@ -18,6 +18,7 @@ module.exports = async (context, input) => {
       productId += `-${childIds[0]}`
     }
     context.storage.user.map.setItem('wishlistItemIdMapping', productId, item.wishlist_item_id)
+
     return productId
   })
 
