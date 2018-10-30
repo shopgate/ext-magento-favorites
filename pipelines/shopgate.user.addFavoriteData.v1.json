@@ -4,7 +4,6 @@
     "id": "shopgate.user.addFavoriteData.v1",
     "public": true,
     "input": [
-      {"key": "productIds", "id": "1"},
       {"key": "products", "id": "100"},
       {"key": "wishlistId", "id": "110", "optional": true}
     ],
@@ -27,7 +26,6 @@
         "id": "@shopgate/magento-cart",
         "path": "@shopgate/magento-cart/products/requestParentProductsFromMagento.js",
         "input": [
-          {"key": "productIds", "id": "1"},
           {"key": "products", "id": "100"},
           {"key": "token","id": "140"}
         ],

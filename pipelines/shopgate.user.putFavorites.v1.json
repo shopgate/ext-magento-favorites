@@ -63,8 +63,7 @@
           "id": "shopgate.user.putCustomerFavorites.v1",
           "input": [
             {"key": "favoriteList", "id": "100"},
-            {"key": "sgxsMeta", "id": "16"},
-            {"key": "productIds", "id": "1"}
+            {"key": "sgxsMeta", "id": "16"}
           ],
           "output": []
         },

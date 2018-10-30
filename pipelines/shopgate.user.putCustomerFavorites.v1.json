@@ -5,8 +5,7 @@
     "public": true,
     "input": [
       {"key": "favoriteList", "id": "100"},
-      {"key": "sgxsMeta", "id": "16"},
-      {"key": "productIds", "id": "1"}
+      {"key": "sgxsMeta", "id": "16"}
     ],
     "output": [],
     "steps": [
@@ -48,8 +47,7 @@
           "type": "pipeline",
           "id": "shopgate.user.addFavoriteData.v1",
           "input": [
-            {"key": "products", "id": "130"},
-            {"key": "productIds", "id": "1"}
+            {"key": "products", "id": "130"}
           ],
           "output": []
         }
