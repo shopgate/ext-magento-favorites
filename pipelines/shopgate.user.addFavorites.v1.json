@@ -58,7 +58,6 @@
           "type": "pipeline",
           "id": "shopgate.user.addFavoriteData.v1",
           "input": [
-            {"key": "productIds", "id": "20"},
             {"key": "products", "id": "100"}
           ],
           "output": []
