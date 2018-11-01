@@ -52,7 +52,7 @@ describe('magento/customer: addItems step', () => {
     const input = {
       token: 'testToken',
       wishlistId: '1',
-      transformedProducts: []
+      transformedProducts: ['1']
     }
     nock(magentoUrl).post('/wishlists/1/items').reply(200, { wishlistItemIds: ['1', '2'] })
     const requestSpy = sinon.spy(context.storage.user.map, 'setItem')

@@ -12,15 +12,15 @@ describe('getDiff', () => {
 
   it('Should return correct arrays for adding and deleting products', async () => {
     input = {
-      productIds: [1, 2],
-      magentoProductIds: [2, 3]
+      favoriteList: [{ id: 1 }, { id: 2 }],
+      magentoProducts: [{ id: 2 }, { id: 3 }]
     }
 
-    const expectedAddResult = [1]
+    const expectedAddResult = [{ id: 1 }]
     const expectedDeleteResult = [3]
     const diffObject = await step(context, input)
 
-    assert.deepStrictEqual(diffObject.addProductIds, expectedAddResult)
+    assert.deepStrictEqual(diffObject.addProducts, expectedAddResult)
     assert.deepStrictEqual(diffObject.removeProductIds, expectedDeleteResult)
   })
 })
