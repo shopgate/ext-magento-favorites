@@ -36,8 +36,6 @@ module.exports = async (context, input) => {
     })
   })
 
-  const useAddPipeline = newProductIds.length > 0
-
   /*
   console.log('putProductIds', putProductIds)
   console.log('existProductIds', existProductIds)
@@ -51,7 +49,6 @@ module.exports = async (context, input) => {
   // console.log(addProductIds)
   return {
     addProducts,
-    removeProductIds,
-    useAddPipeline
+    removeProductIds
   }
 }

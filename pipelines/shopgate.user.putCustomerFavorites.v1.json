@@ -29,28 +29,16 @@
         ],
         "output": [
           {"key": "addProducts", "id": "130"},
-          {"key": "removeProductIds", "id": "150"},
-          {"key": "useAddPipeline", "id": "160"}
+          {"key": "removeProductIds", "id": "150"}
         ]
       },
       {
-        "type": "conditional",
+        "type": "pipeline",
+        "id": "shopgate.user.addFavoriteData.v1",
         "input": [
-          {"key": "useAddPipeline", "id": "160"}
+          {"key": "products", "id": "130"}
         ],
-        "expression": {
-          "ok": [
-            {"name": "useAddPipeline"}
-          ]
-        },
-        "then": {
-          "type": "pipeline",
-          "id": "shopgate.user.addFavoriteData.v1",
-          "input": [
-            {"key": "products", "id": "130"}
-          ],
-          "output": []
-        }
+        "output": []
       },
       {
         "type": "pipeline",

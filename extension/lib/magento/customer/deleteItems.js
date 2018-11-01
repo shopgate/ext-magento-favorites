@@ -11,12 +11,10 @@ module.exports = async (context, input) => {
   const wishlistItemIdMapping = await context.storage.user.map.get('wishlistItemIdMapping') || {}
   const wishlistItemIdsString = input.productIds.map(productId => wishlistItemIdMapping[productId]).toString()
 
-  if (!wishlistItemIdsString) {
-    return
+  if (wishlistItemIdsString) {
+    const request = new MagentoRequest(context, input.token)
+    const itemFilter = `?wishlistItemIds=${wishlistItemIdsString}`
+    const wishlistItemsEndpointUrl = `${context.config.magentoUrl}/wishlists/${input.wishlistId}/items${itemFilter}`
+    request.send(wishlistItemsEndpointUrl, 'deleteFavorites', 'DELETE')
   }
-
-  const request = new MagentoRequest(context, input.token)
-  const itemFilter = `?wishlistItemIds=${wishlistItemIdsString}`
-  const wishlistItemsEndpointUrl = `${context.config.magentoUrl}/wishlists/${input.wishlistId}/items${itemFilter}`
-  request.send(wishlistItemsEndpointUrl, 'deleteFavorites', 'DELETE')
 }
