@@ -1,0 +1,14 @@
+{
+  "720|newman>postman-request>hawk>cryptiles": {
+    "ignore": 1
+  },
+  "720|newman>postman-runtime>hawk>cryptiles": {
+    "ignore": 1
+  },
+  "720|newman>postman-runtime>postman-request>hawk>cryptiles": {
+    "ignore": 1
+  },
+  "717|npm-audit-resolver>spawn-shell>merge-options": {
+    "ignore": 1
+  }
+}
