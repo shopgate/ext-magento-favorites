@@ -1,9 +1,13 @@
-const { differenceWith, isEqual } = require('lodash')
+const _ = {
+  isEqual: require('lodash/isEqual'),
+  differenceWith: require('lodash/differenceWith')
+}
+
 /**
  * @param {StepContext} context
  * @param {Object} input
- * @param {array} input.productIds - products to put
- * @param {array} input.magentoProductIds - products currently on the magento fav list
+ * @param {array} input.favoriteList - products to put
+ * @param {array} input.magentoProducts - products currently on the magento fav list
  * @returns {Promise<{productIds: Object}>}
  */
 module.exports = async (context, input) => {
@@ -18,17 +22,13 @@ module.exports = async (context, input) => {
     existIds.push(item.id)
   })
 
-  const removeProductIds = differenceWith(existIds, favIds, isEqual)
-  const newProductIds = differenceWith(favIds, existIds, isEqual)
+  const removeProductIds = _.differenceWith(existIds, favIds, _.isEqual)
+  const newProductIds = _.differenceWith(favIds, existIds, _.isEqual)
   let addProducts = []
 
-  favoriteList.map(product => {
-    newProductIds.map(id => {
-      if (id === product.id) {
-        addProducts.push(product)
-      }
-    })
-  })
+  for (let id of newProductIds) {
+    addProducts.push(favoriteList.find(product => product.id === id))
+  }
 
   return {
     addProducts,
