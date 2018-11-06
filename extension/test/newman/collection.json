@@ -640,7 +640,7 @@
 											"    pm.response.to.have.status(200);",
 											"});",
 											"",
-											"pm.test('Check that the simple product is properly added', () => {",
+											"pm.test('Check that the simple product is still in the list', () => {",
 											"    const response = pm.response.json();",
 											"    const product = response.products.find(item => item.id === '554' );",
 											"    pm.expect(product).to.be.a('object').to.not.be.empty;",
@@ -684,7 +684,7 @@
 							"response": []
 						},
 						{
-							"name": "Delete simple product",
+							"name": "Put empty list to remove all products",
 							"event": [
 								{
 									"listen": "test",
@@ -709,49 +709,12 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"productId\": \"554\"\n}"
+									"raw": "{\n\t\"productIds\" : []\n}"
 								},
 								"url": {
-									"raw": "{{domain}}{{endpoint_user_favorites_delete}}",
+									"raw": "{{domain}}{{endpoint_user_favorites_put}}",
 									"host": [
-										"{{domain}}{{endpoint_user_favorites_delete}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete config product",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "bb1250ea-8604-4e3b-9d03-c6d628f576a0",
-										"exec": [
-											"pm.test('Status code is 200', function () {",
-											"    pm.response.to.have.status(200);",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\t\"productId\": \"402-231\"\n}"
-								},
-								"url": {
-									"raw": "{{domain}}{{endpoint_user_favorites_delete}}",
-									"host": [
-										"{{domain}}{{endpoint_user_favorites_delete}}"
+										"{{domain}}{{endpoint_user_favorites_put}}"
 									]
 								}
 							},
@@ -1441,7 +1404,7 @@
 											"    pm.response.to.have.status(200);",
 											"});",
 											"",
-											"pm.test('Check that the simple product is properly added', () => {",
+											"pm.test('Check that the simple product is still in the list', () => {",
 											"    const response = pm.response.json();",
 											"    const product = response.products.find(item => item.id === '554' );",
 											"    pm.expect(product).to.be.a('object').to.not.be.empty;",
@@ -1485,7 +1448,7 @@
 							"response": []
 						},
 						{
-							"name": "Delete simple product",
+							"name": "Put empty list to remove all products",
 							"event": [
 								{
 									"listen": "test",
@@ -1510,49 +1473,12 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"productId\": \"554\"\n}"
+									"raw": "{\n\t\"productIds\" : []\n}"
 								},
 								"url": {
-									"raw": "{{domain}}{{endpoint_user_favorites_delete}}",
+									"raw": "{{domain}}{{endpoint_user_favorites_put}}",
 									"host": [
-										"{{domain}}{{endpoint_user_favorites_delete}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete config product",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "bb1250ea-8604-4e3b-9d03-c6d628f576a0",
-										"exec": [
-											"pm.test('Status code is 200', function () {",
-											"    pm.response.to.have.status(200);",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\t\"productId\": \"402-231\"\n}"
-								},
-								"url": {
-									"raw": "{{domain}}{{endpoint_user_favorites_delete}}",
-									"host": [
-										"{{domain}}{{endpoint_user_favorites_delete}}"
+										"{{domain}}{{endpoint_user_favorites_put}}"
 									]
 								}
 							},
