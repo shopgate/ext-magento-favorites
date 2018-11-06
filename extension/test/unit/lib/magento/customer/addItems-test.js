@@ -5,6 +5,7 @@ const sinon = require('sinon')
 
 const addItems = require('../../../../../lib/magento/customer/addItems')
 const transformItemId = require('../../../../../lib/transformItemId')
+const MageRequest = require('../../../../../lib/magento/Request')
 
 describe('magento/customer: addItems step', () => {
   let input = {}
@@ -58,5 +59,17 @@ describe('magento/customer: addItems step', () => {
     const requestSpy = sinon.spy(context.storage.user.map, 'setItem')
     await addItems(context, input)
     assert(requestSpy.called)
+  })
+  it('Should not call send if there are no wishlist items', async () => {
+    const input = {
+      token: 'testToken',
+      wishlistId: '1',
+      transformedProducts: []
+    }
+
+    const requestSpy = sinon.spy(MageRequest.prototype, 'send')
+    await addItems(context, input)
+    sinon.assert.notCalled(requestSpy)
+    requestSpy.restore()
   })
 })
