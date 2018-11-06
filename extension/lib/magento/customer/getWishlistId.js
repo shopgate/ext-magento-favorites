@@ -7,7 +7,7 @@ const MagentoRequest = require('../Request')
  */
 module.exports = async (context, input) => {
   if (input.wishlistId) {
-    return input.wishlistId
+    return { wishlistId: input.wishlistId }
   }
 
   const request = new MagentoRequest(context, input.token)

@@ -7,6 +7,7 @@ const UnauthorizedError = require('../../../../lib/shopgate/errors/UnauthorizedE
 const EndpointNotFound = require('../../../../lib/magento/errors/EndpointNotFound')
 const EndpointNotAllowed = require('../../../../lib/magento/errors/EndpointNotAllowed')
 const EndpointError = require('../../../../lib/magento/errors/Endpoint')
+const UnknownError = require('../../../../lib/shopgate/errors/UnknownError')
 
 describe('magento: Request class', () => {
   /**
@@ -66,5 +67,13 @@ describe('magento: Request class', () => {
     await mageRequest.send(magentoUrl + path)
       .then(result => assert(false, 'Should not be successful'))
       .catch(error => assert(error instanceof EndpointError, 'Improper error returned'))
+  })
+
+  it('Returns unknown error for all other error cases', async () => {
+    nock(magentoUrl).get(path).reply(100, {})
+    // noinspection JSUnusedLocalSymbols
+    await mageRequest.send(magentoUrl + path)
+      .then(result => assert(false, 'Should not be successful'))
+      .catch(error => assert(error instanceof UnknownError, 'Improper error returned'))
   })
 })

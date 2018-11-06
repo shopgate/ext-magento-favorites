@@ -47,7 +47,8 @@
     "exclude": [
       "build",
       "test",
-      "models"
+      "models",
+      "docs"
     ],
     "reporter": [
       "lcov",

@@ -55,4 +55,12 @@ describe('magento/customer: getWishlistId step', () => {
     const response = await step(context, input)
     assert.deepStrictEqual(response, { wishlistId: 42 })
   })
+
+  it('Returns the correct Wishlist id if it is already in the input', async () => {
+    nock(magentoUrl).get(path).reply(200, [{ wishlist_id: 42 }, { wishlist_id: 23 }])
+    input.wishlistId = 23
+
+    const response = await step(context, input)
+    assert.deepStrictEqual(response, { wishlistId: 23 })
+  })
 })

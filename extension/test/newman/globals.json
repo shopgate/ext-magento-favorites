@@ -83,6 +83,12 @@
       "enabled": true
     },
     {
+      "key": "endpoint_user_favorites_put",
+      "value": "/pipelines/shopgate.user.putFavorites.v1",
+      "description": "",
+      "enabled": true
+    },
+    {
       "key": "endpoint_user_favorites_delete",
       "value": "/pipelines/shopgate.user.deleteFavorites.v1",
       "description": "",

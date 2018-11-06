@@ -1,31 +1,29 @@
 {
   "version": "1",
   "pipeline": {
-    "id": "shopgate.user.addFavorites.v1",
+    "id": "shopgate.user.putFavorites.v1",
     "public": true,
     "input": [
       {"key": "sgxsMeta", "id": "16"},
-      {"key": "productId", "id": "1"}
+      {"key": "productIds", "id": "1"}
     ],
     "output": [],
     "steps": [
       {
         "type": "extension",
         "id": "@shopgate/favorites",
-        "path": "@shopgate/favorites/convertToArray.js",
+        "path": "@shopgate/favorites/validateProductIds.js",
         "input": [
-          {"key": "productId", "id": "1"}
+          {"key": "productIds", "id": "1"}
         ],
-        "output": [
-          {"key": "productIds", "id": "20"}
-        ]
+        "output": []
       },
       {
         "type": "pipeline",
         "id": "shopgate.catalog.getProducts.v1",
         "input": [
           {"key": "sgxsMeta", "id": "16"},
-          {"key": "productIds", "id": "20"}
+          {"key": "productIds", "id": "1"}
         ],
         "output": [
           {"key": "products", "id": "100"}
@@ -36,7 +34,7 @@
         "id": "@shopgate/favorites",
         "path": "@shopgate/favorites/checkProducts.js",
         "input": [
-          {"key": "productIds", "id": "20"},
+          {"key": "productIds", "id": "1"},
           {"key": "products", "id": "100"}
         ],
         "output": []
@@ -52,22 +50,29 @@
       },
       {
         "type": "conditional",
-        "input": [{"key": "userId", "id": "10"}],
-        "expression": {"ok": [{"name":"userId"}]},
+        "input": [
+          {"key": "userId", "id": "10"}
+        ],
+        "expression": {
+          "ok": [
+            {"name": "userId"}
+          ]
+        },
         "then": {
           "type": "pipeline",
-          "id": "shopgate.user.addFavoriteData.v1",
+          "id": "shopgate.user.putCustomerFavorites.v1",
           "input": [
-            {"key": "products", "id": "100"}
+            {"key": "favoriteList", "id": "100"},
+            {"key": "sgxsMeta", "id": "16"}
           ],
           "output": []
         },
         "else": {
           "type": "extension",
           "id": "@shopgate/favorites",
-          "path": "@shopgate/favorites/anonymous/addItem.js",
+          "path": "@shopgate/favorites/anonymous/putItems.js",
           "input": [
-            {"key": "productIds", "id": "20"}
+            {"key": "productIds", "id": "1"}
           ],
           "output": []
         }
