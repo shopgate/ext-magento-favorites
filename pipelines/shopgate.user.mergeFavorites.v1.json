@@ -1,0 +1,76 @@
+{
+  "version": "1",
+  "pipeline": {
+    "id": "shopgate.user.mergeFavorites.v1",
+    "public": true,
+    "input": [
+      {"key": "sgxsMeta", "id": "10"},
+      {"key": "wishlistId", "id": "20"},
+      {"key": "mageProducts", "id": "30"}
+    ],
+    "output": [
+      {"key": "productIds", "id": "150"}
+    ],
+    "steps": [
+      {
+        "type": "extension",
+          "id": "@shopgate/favorites",
+          "path": "@shopgate/favorites/anonymous/getItems.js",
+          "input": [],
+          "output": [
+            {"key": "productIds", "id": "40"}
+          ]
+      },
+      {
+        "type": "extension",
+          "id": "@shopgate/magento-favorites",
+          "path": "@shopgate/magento-favorites/lib/magento/customer/getSyncItems.js",
+          "input": [
+            {"key": "sgxsMeta", "id": "10"},
+            {"key": "wishlistId", "id": "20"},
+            {"key": "mageProductsIds", "id": "30"},
+            {"key": "localProductsIds", "id": "40"}
+          ],
+          "output": [
+            {"key": "addProductsIds", "id": "50"},
+            {"key": "productIds", "id": "150"}
+          ]
+      },
+      {
+        "type": "pipeline",
+          "id": "shopgate.catalog.getProducts.v1",
+          "input": [
+            {"key": "sgxsMeta", "id": "10"},
+            {"key": "productIds", "id": "50"}
+          ],
+          "output": [
+            {"key": "products", "id": "60"}
+          ]
+      },
+      {
+        "type": "pipeline",
+          "id": "shopgate.user.addFavoriteData.v1",
+          "input": [
+            {"key": "products", "id": "60"}
+          ],
+          "output": []
+      },
+      {
+        "type": "extension",
+          "id": "@shopgate/favorites",
+          "path": "@shopgate/favorites/anonymous/deleteItem.js",
+          "input": [
+            {"key": "productIds", "id": "40"}
+          ],
+          "output": []
+      },
+      {
+        "type": "errorCatchExtension",
+        "id": "@shopgate/favorites",
+        "path": "@shopgate/favorites/catch/catchGenericError.js",
+        "input": [],
+        "output": []
+      }
+    ]
+  }
+}
