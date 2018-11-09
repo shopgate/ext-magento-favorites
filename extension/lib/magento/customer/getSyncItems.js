@@ -15,7 +15,7 @@ module.exports = async (context, input) => {
   const { mageProductsIds, guestProductIds } = input
 
   return {
-    addProductsIds: _.differenceWith(localProductsIds, mageProductsIds, _.isEqual),
+    addProductsIds: _.differenceWith(guestProductIds, mageProductsIds, _.isEqual),
     productIds: _.concat(mageProductsIds, localProductsIds)
   }
 }
