@@ -7,9 +7,9 @@ const _ = {
 /**
  * @param {StepContext} context
  * @param {Object} input
- * @param {Object[]} input.mageProductsIds
- * @param {Object[]} input.localProductsIds
- * @returns {Promise<{addProducts: Object[], productIds: Object[]}>}
+ * @param {string[]} input.mageProductsIds
+ * @param {string[]} input.localProductsIds
+ * @returns {Promise<{addProducts: string[], productIds: string[]}>}
  */
 module.exports = async (context, input) => {
   const { mageProductsIds, localProductsIds } = input
