@@ -29,7 +29,7 @@
             {"key": "sgxsMeta", "id": "10"},
             {"key": "wishlistId", "id": "20"},
             {"key": "mageProductsIds", "id": "30"},
-            {"key": "localProductsIds", "id": "40"}
+            {"key": "guestProductIds", "id": "40"}
           ],
           "output": [
             {"key": "addProductsIds", "id": "50"},
