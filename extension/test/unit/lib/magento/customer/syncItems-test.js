@@ -13,7 +13,7 @@ describe('getSyncItems', () => {
   it('Should return correct arrays for adding one product', async () => {
     input = {
       mageProductsIds: [{ id: 10 }],
-      localProductsIds: [{ id: 20 }]
+      guestProductIds: [{ id: 20 }]
     }
 
     const expectedAddResult = [{ id: 20 }]
