@@ -2,6 +2,7 @@
   "version": "1",
   "pipeline": {
     "id": "shopgate.user.getCustomerFavorites.v1",
+    "public": true,
     "input": [
       {"key": "token", "id": "100"},
       {"key": "wishlistId", "id": "110", "optional": true},
@@ -38,7 +39,7 @@
         "input": [
           {"key": "sgxsMeta", "id": "10"},
           {"key": "wishlistId", "id": "110"},
-          {"key": "mageProducts", "id": "120"}
+          {"key": "mageProductIds", "id": "120"}
         ],
         "output": [
           {"key": "productIds", "id": "150"}
@@ -47,7 +48,6 @@
     ],
     "output": [
       {"key": "productIds", "id": "150"}
-    ],
-    "public": true
+    ]
   }
 }

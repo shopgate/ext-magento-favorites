@@ -6,7 +6,7 @@
     "input": [
       {"key": "sgxsMeta", "id": "10"},
       {"key": "wishlistId", "id": "20"},
-      {"key": "mageProducts", "id": "30"}
+      {"key": "mageProductIds", "id": "30"}
     ],
     "output": [
       {"key": "productIds", "id": "150"}
