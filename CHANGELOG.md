@@ -9,4 +9,4 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - retrieval of favorite / wishlist products for guests and customers
 - addition of favorite / wishlist products for guests and customers
 - removal of favorite / wishlist products for guests and customers
-- synchronize local favorites to Magento after login / registration 
+- synchronization of guest favorite / wishlist products with Magento after login / registration 
