@@ -1,7 +1,8 @@
 const _ = {
   isEqual: require('lodash/isEqual'),
   differenceWith: require('lodash/differenceWith'),
-  concat: require('lodash/concat')
+  concat: require('lodash/concat'),
+  uniqBy: require('lodash/uniqBy')
 }
 
 /**
@@ -16,6 +17,6 @@ module.exports = async (context, input) => {
 
   return {
     addProductsIds: _.differenceWith(guestProductIds, mageProductsIds, _.isEqual),
-    productIds: _.concat(mageProductsIds, guestProductIds)
+    productIds: _.uniqBy(_.concat(mageProductsIds, guestProductIds), 'id')
   }
 }
