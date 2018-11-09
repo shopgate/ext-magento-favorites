@@ -12,7 +12,7 @@ const _ = {
  * @returns {Promise<{addProducts: string[], productIds: string[]}>}
  */
 module.exports = async (context, input) => {
-  const { mageProductsIds, localProductsIds } = input
+  const { mageProductsIds, guestProductIds } = input
 
   return {
     addProductsIds: _.differenceWith(localProductsIds, mageProductsIds, _.isEqual),
