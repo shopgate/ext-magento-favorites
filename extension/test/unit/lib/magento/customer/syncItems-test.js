@@ -85,7 +85,7 @@ describe('getSyncItems', () => {
   it('Should return correct arrays current products ids - no local products', async () => {
     input = {
       mageProductsIds: [{ id: 20 }, { id: 30 }],
-      localProductsIds: []
+      guestProductIds: []
     }
 
     const expectedAddResult = [{ id: 20 }, { id: 30 }]
