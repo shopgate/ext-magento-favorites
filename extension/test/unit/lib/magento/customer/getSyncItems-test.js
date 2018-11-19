@@ -10,7 +10,7 @@ describe('getSyncItems', () => {
     input = {}
   })
 
-  it('Should return the full list of products ids and correct array of product id(s) to add by adding one guest product', async () => {
+  it('Should return the full list of product ids and correct array of product id(s) to add by adding one guest product', async () => {
     input = {
       mageProductsIds: [10],
       guestProductIds: [20]
@@ -24,7 +24,7 @@ describe('getSyncItems', () => {
     assert.deepStrictEqual(diffObject.productIds, expectedProductIdsResult)
   })
 
-  it('Should return the full list of products ids and a empty array of products id(s) to add because the product products are the same', async () => {
+  it('Should return the full list of product ids and a empty array of product id(s) to add because the product products are the same', async () => {
     input = {
       mageProductsIds: [20],
       guestProductIds: [20]
@@ -38,7 +38,7 @@ describe('getSyncItems', () => {
     assert.deepStrictEqual(diffObject.productIds, expectedProductIdsResult)
   })
 
-  it('Should return  the full list of products ids and a empty array of products id(s) to add because there are no guest product given', async () => {
+  it('Should return the full list of product ids and a empty array of product id(s) to add because there are no guest product given', async () => {
     input = {
       mageProductsIds: [20, 30],
       guestProductIds: []
@@ -52,7 +52,7 @@ describe('getSyncItems', () => {
     assert.deepStrictEqual(diffObject.productIds, expectedProductIdsResult)
   })
 
-  it('Should return the full list of products ids and a correct array of products id(s) to add by empty mage products', async () => {
+  it('Should return the full list of product ids and a correct array of product id(s) to add by empty mage products', async () => {
     input = {
       mageProductsIds: [],
       guestProductIds: [20, 30]
@@ -66,7 +66,7 @@ describe('getSyncItems', () => {
     assert.deepStrictEqual(diffObject.productIds, expectedProductIdsResult)
   })
 
-  it('Should return the full list of products ids and correct array of products id(s) to add on merge', async () => {
+  it('Should return the full list of product ids and correct array of product id(s) to add on merge', async () => {
     input = {
       mageProductsIds: [40],
       guestProductIds: [20, 30]
@@ -80,7 +80,7 @@ describe('getSyncItems', () => {
     assert.deepStrictEqual(diffObject.productIds, expectedProductIdsResult)
   })
 
-  it('Should return the full list of products ids and array of all guest products id(s) because there are no mage products', async () => {
+  it('Should return the full list of product ids and array of all guest product id(s) because there are no mage products', async () => {
     input = {
       mageProductsIds: [],
       guestProductIds: [20, 30]
@@ -94,7 +94,7 @@ describe('getSyncItems', () => {
     assert.deepStrictEqual(diffObject.productIds, expectedProductIdsResult)
   })
 
-  it('Should return the full list of products ids and array of all product id(s) to add becsuse there are no guest products given', async () => {
+  it('Should return the full list of product ids and array of all product id(s) to add becsuse there are no guest products given', async () => {
     input = {
       mageProductsIds: [20, 30],
       guestProductIds: []
