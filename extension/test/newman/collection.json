@@ -1528,6 +1528,1445 @@
 						}
 					],
 					"_postman_isSubFolder": true
+				},
+				{
+					"name": "sync",
+					"item": [
+						{
+							"name": "Empty Mage favorites",
+							"item": [
+								{
+									"name": "Preparation",
+									"item": [
+										{
+											"name": "Logout",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "73f7922e-ca38-4f28-855f-6db6b6e0dd01",
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{}"
+												},
+												"url": {
+													"raw": "{{domain}}{{endpoint_user_logout}}",
+													"host": [
+														"{{domain}}{{endpoint_user_logout}}"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "Test",
+									"item": [
+										{
+											"name": "Add simple product to list",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "75ebdfa1-4830-4477-b86b-1f4d001fedbc",
+														"exec": [
+															"pm.test('Status code is 200', function () {",
+															"    pm.response.to.have.status(200);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"productId\" : \"554\"\n}"
+												},
+												"url": {
+													"raw": "{{domain}}{{endpoint_user_favorites_add}}",
+													"host": [
+														"{{domain}}{{endpoint_user_favorites_add}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Add config product to list",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "75ebdfa1-4830-4477-b86b-1f4d001fedbc",
+														"exec": [
+															"pm.test('Status code is 200', function () {",
+															"    pm.response.to.have.status(200);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"productId\" : \"402-231\"\n}"
+												},
+												"url": {
+													"raw": "{{domain}}{{endpoint_user_favorites_add}}",
+													"host": [
+														"{{domain}}{{endpoint_user_favorites_add}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Confirm products added",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "5cd67dd2-faf6-4720-8031-cbf3a65d0a32",
+														"exec": [
+															"pm.test('Status code is 200', function () {",
+															"    pm.response.to.have.status(200);",
+															"});",
+															"",
+															"pm.test('Check that the simple product is properly added', () => {",
+															"    const response = pm.response.json();",
+															"    const product = response.products.find(item => item.id === '554' );",
+															"    pm.expect(product).to.be.a('object').to.not.be.empty;",
+															"});",
+															"",
+															"pm.test('Check that the configured simple product is properly added', () => {",
+															"    const response = pm.response.json();",
+															"    const product = response.products.find(item => item.id === '402-231' );",
+															"    pm.expect(product).to.be.a('object').to.not.be.empty;",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{}"
+												},
+												"url": {
+													"raw": "{{domain}}{{endpoint_user_favorites_get}}",
+													"host": [
+														"{{domain}}{{endpoint_user_favorites_get}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Login",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "73f7922e-ca38-4f28-855f-6db6b6e0dd01",
+														"exec": [
+															"pm.test('Status code is 200', function () {",
+															"    pm.response.to.have.status(200);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"strategy\": \"basic\",\n\t\"parameters\": {\n\t\t\"login\": \"{{username}}\",\n\t\t\"password\": \"{{password}}\"\n\t}\n}"
+												},
+												"url": {
+													"raw": "{{domain}}{{endpoint_user_login}}",
+													"host": [
+														"{{domain}}{{endpoint_user_login}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Confirm synced to mage",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "5cd67dd2-faf6-4720-8031-cbf3a65d0a32",
+														"exec": [
+															"pm.test('Status code is 200', function () {",
+															"    pm.response.to.have.status(200);",
+															"});",
+															"",
+															"pm.test('Check that the simple product is properly added', () => {",
+															"    const response = pm.response.json();",
+															"    const product = response.products.find(item => item.id === '554' );",
+															"    pm.expect(product).to.be.a('object').to.not.be.empty;",
+															"});",
+															"",
+															"pm.test('Check that the configured simple product is properly added', () => {",
+															"    const response = pm.response.json();",
+															"    const product = response.products.find(item => item.id === '402-231' );",
+															"    pm.expect(product).to.be.a('object').to.not.be.empty;",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{}"
+												},
+												"url": {
+													"raw": "{{domain}}{{endpoint_user_favorites_get}}",
+													"host": [
+														"{{domain}}{{endpoint_user_favorites_get}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Logout",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "73f7922e-ca38-4f28-855f-6db6b6e0dd01",
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{}"
+												},
+												"url": {
+													"raw": "{{domain}}{{endpoint_user_logout}}",
+													"host": [
+														"{{domain}}{{endpoint_user_logout}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Check local favorites is empty",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "0e9d63aa-87f7-4923-b737-5e15e8116538",
+														"exec": [
+															"pm.test('Status code is 200', function () {",
+															"    pm.response.to.have.status(200);",
+															"});",
+															"",
+															"pm.test('No items exist in the fav. list', () => {",
+															"    const response = pm.response.json();",
+															"    pm.expect(response.products).to.be.a('array').to.be.empty;",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{}"
+												},
+												"url": {
+													"raw": "{{domain}}{{endpoint_user_favorites_get}}",
+													"host": [
+														"{{domain}}{{endpoint_user_favorites_get}}"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "Cleanup",
+									"item": [
+										{
+											"name": "Login",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "73f7922e-ca38-4f28-855f-6db6b6e0dd01",
+														"exec": [
+															"pm.test('Status code is 200', function () {",
+															"    pm.response.to.have.status(200);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"strategy\": \"basic\",\n\t\"parameters\": {\n\t\t\"login\": \"{{username}}\",\n\t\t\"password\": \"{{password}}\"\n\t}\n}"
+												},
+												"url": {
+													"raw": "{{domain}}{{endpoint_user_login}}",
+													"host": [
+														"{{domain}}{{endpoint_user_login}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Delete simple product",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "bb1250ea-8604-4e3b-9d03-c6d628f576a0",
+														"exec": [
+															"pm.test('Status code is 200', function () {",
+															"    pm.response.to.have.status(200);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"productId\": \"554\"\n}"
+												},
+												"url": {
+													"raw": "{{domain}}{{endpoint_user_favorites_delete}}",
+													"host": [
+														"{{domain}}{{endpoint_user_favorites_delete}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Delete config product",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "bb1250ea-8604-4e3b-9d03-c6d628f576a0",
+														"exec": [
+															"pm.test('Status code is 200', function () {",
+															"    pm.response.to.have.status(200);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"productId\": \"402-231\"\n}"
+												},
+												"url": {
+													"raw": "{{domain}}{{endpoint_user_favorites_delete}}",
+													"host": [
+														"{{domain}}{{endpoint_user_favorites_delete}}"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"_postman_isSubFolder": true
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Exist Mage favorite",
+							"item": [
+								{
+									"name": "Preparation",
+									"item": [
+										{
+											"name": "Login",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "73f7922e-ca38-4f28-855f-6db6b6e0dd01",
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"strategy\": \"basic\",\n\t\"parameters\": {\n\t\t\"login\": \"{{username}}\",\n\t\t\"password\": \"{{password}}\"\n\t}\n}"
+												},
+												"url": {
+													"raw": "{{domain}}{{endpoint_user_login}}",
+													"host": [
+														"{{domain}}{{endpoint_user_login}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Add simple product to list",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "75ebdfa1-4830-4477-b86b-1f4d001fedbc",
+														"exec": [
+															"pm.test('Status code is 200', function () {",
+															"    pm.response.to.have.status(200);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"productId\" : \"393\"\n}"
+												},
+												"url": {
+													"raw": "{{domain}}{{endpoint_user_favorites_add}}",
+													"host": [
+														"{{domain}}{{endpoint_user_favorites_add}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Logout",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "73f7922e-ca38-4f28-855f-6db6b6e0dd01",
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{}"
+												},
+												"url": {
+													"raw": "{{domain}}{{endpoint_user_logout}}",
+													"host": [
+														"{{domain}}{{endpoint_user_logout}}"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "Test",
+									"item": [
+										{
+											"name": "Add simple product to list",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "75ebdfa1-4830-4477-b86b-1f4d001fedbc",
+														"exec": [
+															"pm.test('Status code is 200', function () {",
+															"    pm.response.to.have.status(200);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"productId\" : \"554\"\n}"
+												},
+												"url": {
+													"raw": "{{domain}}{{endpoint_user_favorites_add}}",
+													"host": [
+														"{{domain}}{{endpoint_user_favorites_add}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Add config product to list",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "75ebdfa1-4830-4477-b86b-1f4d001fedbc",
+														"exec": [
+															"pm.test('Status code is 200', function () {",
+															"    pm.response.to.have.status(200);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"productId\" : \"402-231\"\n}"
+												},
+												"url": {
+													"raw": "{{domain}}{{endpoint_user_favorites_add}}",
+													"host": [
+														"{{domain}}{{endpoint_user_favorites_add}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Confirm products added",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "5cd67dd2-faf6-4720-8031-cbf3a65d0a32",
+														"exec": [
+															"pm.test('Status code is 200', function () {",
+															"    pm.response.to.have.status(200);",
+															"});",
+															"",
+															"pm.test('Check that the simple product is properly added', () => {",
+															"    const response = pm.response.json();",
+															"    const product = response.products.find(item => item.id === '554' );",
+															"    pm.expect(product).to.be.a('object').to.not.be.empty;",
+															"});",
+															"",
+															"pm.test('Check that the configured simple product is properly added', () => {",
+															"    const response = pm.response.json();",
+															"    const product = response.products.find(item => item.id === '402-231' );",
+															"    pm.expect(product).to.be.a('object').to.not.be.empty;",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{}"
+												},
+												"url": {
+													"raw": "{{domain}}{{endpoint_user_favorites_get}}",
+													"host": [
+														"{{domain}}{{endpoint_user_favorites_get}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Login",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "73f7922e-ca38-4f28-855f-6db6b6e0dd01",
+														"exec": [
+															"pm.test('Status code is 200', function () {",
+															"    pm.response.to.have.status(200);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"strategy\": \"basic\",\n\t\"parameters\": {\n\t\t\"login\": \"{{username}}\",\n\t\t\"password\": \"{{password}}\"\n\t}\n}"
+												},
+												"url": {
+													"raw": "{{domain}}{{endpoint_user_login}}",
+													"host": [
+														"{{domain}}{{endpoint_user_login}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Confirm synced to mage",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "5cd67dd2-faf6-4720-8031-cbf3a65d0a32",
+														"exec": [
+															"pm.test('Status code is 200', function () {",
+															"    pm.response.to.have.status(200);",
+															"});",
+															"",
+															"pm.test('Check that the simple product is properly added', () => {",
+															"    const response = pm.response.json();",
+															"    const product = response.products.find(item => item.id === '554' );",
+															"    pm.expect(product).to.be.a('object').to.not.be.empty;",
+															"});",
+															"",
+															"pm.test('Check that the configured simple product is properly added', () => {",
+															"    const response = pm.response.json();",
+															"    const product = response.products.find(item => item.id === '402-231' );",
+															"    pm.expect(product).to.be.a('object').to.not.be.empty;",
+															"});",
+															"",
+															"pm.test('Check that the configured simple product is still added', () => {",
+															"    const response = pm.response.json();",
+															"    const product = response.products.find(item => item.id === '393' );",
+															"    pm.expect(product).to.be.a('object').to.not.be.empty;",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{}"
+												},
+												"url": {
+													"raw": "{{domain}}{{endpoint_user_favorites_get}}",
+													"host": [
+														"{{domain}}{{endpoint_user_favorites_get}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Logout",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "73f7922e-ca38-4f28-855f-6db6b6e0dd01",
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{}"
+												},
+												"url": {
+													"raw": "{{domain}}{{endpoint_user_logout}}",
+													"host": [
+														"{{domain}}{{endpoint_user_logout}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Check local favorites is empty",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "0e9d63aa-87f7-4923-b737-5e15e8116538",
+														"exec": [
+															"pm.test('Status code is 200', function () {",
+															"    pm.response.to.have.status(200);",
+															"});",
+															"",
+															"pm.test('No items exist in the fav. list', () => {",
+															"    const response = pm.response.json();",
+															"    pm.expect(response.products).to.be.a('array').to.be.empty;",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{}"
+												},
+												"url": {
+													"raw": "{{domain}}{{endpoint_user_favorites_get}}",
+													"host": [
+														"{{domain}}{{endpoint_user_favorites_get}}"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "Cleanup",
+									"item": [
+										{
+											"name": "Login",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "73f7922e-ca38-4f28-855f-6db6b6e0dd01",
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"strategy\": \"basic\",\n\t\"parameters\": {\n\t\t\"login\": \"{{username}}\",\n\t\t\"password\": \"{{password}}\"\n\t}\n}"
+												},
+												"url": {
+													"raw": "{{domain}}{{endpoint_user_login}}",
+													"host": [
+														"{{domain}}{{endpoint_user_login}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Delete before added simple product",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "bb1250ea-8604-4e3b-9d03-c6d628f576a0",
+														"exec": [
+															"pm.test('Status code is 200', function () {",
+															"    pm.response.to.have.status(200);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"productId\": \"393\"\n}"
+												},
+												"url": {
+													"raw": "{{domain}}{{endpoint_user_favorites_delete}}",
+													"host": [
+														"{{domain}}{{endpoint_user_favorites_delete}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Delete simple product",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "bb1250ea-8604-4e3b-9d03-c6d628f576a0",
+														"exec": [
+															"pm.test('Status code is 200', function () {",
+															"    pm.response.to.have.status(200);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"productId\": \"554\"\n}"
+												},
+												"url": {
+													"raw": "{{domain}}{{endpoint_user_favorites_delete}}",
+													"host": [
+														"{{domain}}{{endpoint_user_favorites_delete}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Delete config product",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "bb1250ea-8604-4e3b-9d03-c6d628f576a0",
+														"exec": [
+															"pm.test('Status code is 200', function () {",
+															"    pm.response.to.have.status(200);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"productId\": \"402-231\"\n}"
+												},
+												"url": {
+													"raw": "{{domain}}{{endpoint_user_favorites_delete}}",
+													"host": [
+														"{{domain}}{{endpoint_user_favorites_delete}}"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"_postman_isSubFolder": true
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Empty local favorites",
+							"item": [
+								{
+									"name": "Preparation",
+									"item": [
+										{
+											"name": "Login",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "73f7922e-ca38-4f28-855f-6db6b6e0dd01",
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"strategy\": \"basic\",\n\t\"parameters\": {\n\t\t\"login\": \"{{username}}\",\n\t\t\"password\": \"{{password}}\"\n\t}\n}"
+												},
+												"url": {
+													"raw": "{{domain}}{{endpoint_user_login}}",
+													"host": [
+														"{{domain}}{{endpoint_user_login}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Add simple product to list",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "75ebdfa1-4830-4477-b86b-1f4d001fedbc",
+														"exec": [
+															"pm.test('Status code is 200', function () {",
+															"    pm.response.to.have.status(200);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"productId\" : \"393\"\n}"
+												},
+												"url": {
+													"raw": "{{domain}}{{endpoint_user_favorites_add}}",
+													"host": [
+														"{{domain}}{{endpoint_user_favorites_add}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Logout",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "73f7922e-ca38-4f28-855f-6db6b6e0dd01",
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{}"
+												},
+												"url": {
+													"raw": "{{domain}}{{endpoint_user_logout}}",
+													"host": [
+														"{{domain}}{{endpoint_user_logout}}"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "Test",
+									"item": [
+										{
+											"name": "Check local favorites is empty",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "0e9d63aa-87f7-4923-b737-5e15e8116538",
+														"exec": [
+															"pm.test('Status code is 200', function () {",
+															"    pm.response.to.have.status(200);",
+															"});",
+															"",
+															"pm.test('No items exist in the fav. list', () => {",
+															"    const response = pm.response.json();",
+															"    pm.expect(response.products).to.be.a('array').to.be.empty;",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{}"
+												},
+												"url": {
+													"raw": "{{domain}}{{endpoint_user_favorites_get}}",
+													"host": [
+														"{{domain}}{{endpoint_user_favorites_get}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Login",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "73f7922e-ca38-4f28-855f-6db6b6e0dd01",
+														"exec": [
+															"pm.test('Status code is 200', function () {",
+															"    pm.response.to.have.status(200);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"strategy\": \"basic\",\n\t\"parameters\": {\n\t\t\"login\": \"{{username}}\",\n\t\t\"password\": \"{{password}}\"\n\t}\n}"
+												},
+												"url": {
+													"raw": "{{domain}}{{endpoint_user_login}}",
+													"host": [
+														"{{domain}}{{endpoint_user_login}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Confirm nothing is synced and simplte product still on mage",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "5cd67dd2-faf6-4720-8031-cbf3a65d0a32",
+														"exec": [
+															"pm.test('Status code is 200', function () {",
+															"    pm.response.to.have.status(200);",
+															"});",
+															"",
+															"pm.test('Check that the configured simple product is still added', () => {",
+															"    const response = pm.response.json();",
+															"    const product = response.products.find(item => item.id === '393' );",
+															"    pm.expect(product).to.be.a('object').to.not.be.empty;",
+															"});",
+															"",
+															"pm.test('Check that the product count is one', () => {",
+															"    const response = pm.response.json();",
+															"    console.log(response.products)",
+															"    pm.expect(response.products.length).to.equal(1);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{}"
+												},
+												"url": {
+													"raw": "{{domain}}{{endpoint_user_favorites_get}}",
+													"host": [
+														"{{domain}}{{endpoint_user_favorites_get}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Logout",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "73f7922e-ca38-4f28-855f-6db6b6e0dd01",
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{}"
+												},
+												"url": {
+													"raw": "{{domain}}{{endpoint_user_logout}}",
+													"host": [
+														"{{domain}}{{endpoint_user_logout}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Check local favorites is empty",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "0e9d63aa-87f7-4923-b737-5e15e8116538",
+														"exec": [
+															"pm.test('Status code is 200', function () {",
+															"    pm.response.to.have.status(200);",
+															"});",
+															"",
+															"pm.test('No items exist in the fav. list', () => {",
+															"    const response = pm.response.json();",
+															"    pm.expect(response.products).to.be.a('array').to.be.empty;",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{}"
+												},
+												"url": {
+													"raw": "{{domain}}{{endpoint_user_favorites_get}}",
+													"host": [
+														"{{domain}}{{endpoint_user_favorites_get}}"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "Cleanup",
+									"item": [
+										{
+											"name": "Login",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "73f7922e-ca38-4f28-855f-6db6b6e0dd01",
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"strategy\": \"basic\",\n\t\"parameters\": {\n\t\t\"login\": \"{{username}}\",\n\t\t\"password\": \"{{password}}\"\n\t}\n}"
+												},
+												"url": {
+													"raw": "{{domain}}{{endpoint_user_login}}",
+													"host": [
+														"{{domain}}{{endpoint_user_login}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Delete before added simple product",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "bb1250ea-8604-4e3b-9d03-c6d628f576a0",
+														"exec": [
+															"pm.test('Status code is 200', function () {",
+															"    pm.response.to.have.status(200);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"productId\": \"393\"\n}"
+												},
+												"url": {
+													"raw": "{{domain}}{{endpoint_user_favorites_delete}}",
+													"host": [
+														"{{domain}}{{endpoint_user_favorites_delete}}"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"_postman_isSubFolder": true
+								}
+							],
+							"_postman_isSubFolder": true
+						}
+					],
+					"_postman_isSubFolder": true
 				}
 			]
 		}

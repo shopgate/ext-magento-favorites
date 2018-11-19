@@ -42,7 +42,8 @@
           "type": "pipeline",
           "id": "shopgate.user.getCustomerFavorites.v1",
           "input": [
-            {"key": "token","id": "140"}
+            {"key": "token","id": "140"},
+            {"key": "sgxsMeta", "id": "10"}
           ],
           "output": [
             {"key": "productIds", "id": "120"}
