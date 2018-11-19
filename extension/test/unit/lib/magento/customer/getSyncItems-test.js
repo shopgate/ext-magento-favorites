@@ -24,7 +24,7 @@ describe('getSyncItems', () => {
     assert.deepStrictEqual(diffObject.productIds, expectedProductIdsResult)
   })
 
-  it(' f Should return the full list of products ids and a empty array of products id(s) to add because the product products are the same', async () => {
+  it('Should return the full list of products ids and a empty array of products id(s) to add because the product products are the same', async () => {
     input = {
       mageProductsIds: [20],
       guestProductIds: [20]
