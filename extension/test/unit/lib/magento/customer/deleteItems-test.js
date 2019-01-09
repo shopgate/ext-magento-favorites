@@ -32,8 +32,8 @@ describe('magento/customer: deleteItems step', () => {
       storage: {
         user: {
           map: {
-            get: () => {
-            }
+            get: () => {},
+            delItem: () => {}
           }
         }
       }
