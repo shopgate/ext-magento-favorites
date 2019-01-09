@@ -13,16 +13,18 @@ module.exports = async (context, input) => {
 
   if (!wishlistItemIdsString) {
     context.log.debug('No products of this mapping exist in the storage.')
-    return deleteItemsFromStorage()
+    deleteItemsFromStorage()
+
+    return
   }
 
   const request = new MagentoRequest(context, input.token)
   const itemFilter = `?wishlistItemIds=${wishlistItemIdsString}`
   const wishlistItemsEndpointUrl = `${context.config.magentoUrl}/wishlists/${input.wishlistId}/items${itemFilter}`
   await request.send(wishlistItemsEndpointUrl, 'deleteFavorites', 'DELETE')
-  await deleteItemsFromStorage()
+  deleteItemsFromStorage()
 
-  async function deleteItemsFromStorage () {
+  function deleteItemsFromStorage () {
     input.productIds.map(id => {
       context.storage.user.map.delItem('wishlistItemIdMapping', id)
     })
