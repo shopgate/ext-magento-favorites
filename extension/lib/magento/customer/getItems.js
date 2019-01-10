@@ -11,8 +11,8 @@ module.exports = async (context, input) => {
   const request = new MagentoRequest(context, input.token)
   const wishlistItemsEndpointUrl = `${context.config.magentoUrl}/wishlists/${input.wishlistId}/items`
   const wishlistItems = await request.send(wishlistItemsEndpointUrl, 'Request to Magento: getFavorites', 'GET')
-  context.storage.user.map.del('wishlistItemIdMapping')
-  const productIds = wishlistItems.map(item => {
+  await context.storage.user.map.del('wishlistItemIdMapping')
+  const productIds = await wishlistItems.map(item => {
     let { child_ids: childIds, type, product_id: productId } = item
     if (type === 'configurable' && childIds) {
       productId += `-${childIds[0]}`

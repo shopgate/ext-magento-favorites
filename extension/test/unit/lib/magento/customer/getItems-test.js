@@ -28,16 +28,14 @@ describe('magento/customer: getItems step', () => {
         return request
       },
       log: {
-        debug: (object, message) => {
-        }
+        debug: (object, message) => {}
       },
       storage: {
         user: {
           map: {
-            setItem: () => {
-            },
-            del: () => {
-            }
+            setItem: () => {},
+            delItem: () => {},
+            del: () => {}
           }
         }
       }
@@ -51,13 +49,21 @@ describe('magento/customer: getItems step', () => {
   })
 
   it('Returns the correct product ids of simple products based on a config', async () => {
-    nock(magentoUrl).get(`${path}/42/items`).reply(200, [{ product_id: '20' }, { product_id: '10', child_ids: ['30'], type: 'configurable' }])
+    nock(magentoUrl).get(`${path}/42/items`).reply(200, [{ product_id: '20' }, {
+      product_id: '10',
+      child_ids: ['30'],
+      type: 'configurable'
+    }])
     const response = await step(context, input)
     assert.deepStrictEqual(response, { productIds: ['20', '10-30'] })
   })
 
   it('Returns the correct product parent id if child_ids null', async () => {
-    nock(magentoUrl).get(`${path}/42/items`).reply(200, [{ product_id: '20' }, { product_id: '10', child_ids: null, type: 'configurable' }])
+    nock(magentoUrl).get(`${path}/42/items`).reply(200, [{ product_id: '20' }, {
+      product_id: '10',
+      child_ids: null,
+      type: 'configurable'
+    }])
     const response = await step(context, input)
     assert.deepStrictEqual(response, { productIds: ['20', '10'] })
   })

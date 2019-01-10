@@ -11,6 +11,7 @@ module.exports = async (context, input) => {
   const wishlistItems = input.transformedProducts.map(({ product }) => product)
 
   if (wishlistItems.length === 0) {
+    context.log.debug('No transformed products found.')
     return
   }
 
