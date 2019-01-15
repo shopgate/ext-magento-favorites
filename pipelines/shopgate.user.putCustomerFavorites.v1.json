@@ -1,0 +1,53 @@
+{
+  "version": "1",
+  "pipeline": {
+    "id": "shopgate.user.putCustomerFavorites.v1",
+    "public": true,
+    "input": [
+      {"key": "favoriteList", "id": "100"},
+      {"key": "sgxsMeta", "id": "16"}
+    ],
+    "output": [],
+    "steps": [
+      {
+        "type": "pipeline",
+          "id": "shopgate.user.getFavorites.v1",
+          "input": [
+            {"key": "sgxsMeta", "id": "16"}
+          ],
+          "output": [
+            {"key": "products", "id": "120"}
+          ]
+      },
+      {
+        "id": "@shopgate/magento-favorites",
+        "path": "@shopgate/magento-favorites/lib/magento/customer/getDiff.js",
+        "type": "extension",
+        "input": [
+          {"key": "favoriteList", "id": "100"},
+          {"key": "magentoProducts", "id": "120"}
+        ],
+        "output": [
+          {"key": "addProducts", "id": "130"},
+          {"key": "removeProductIds", "id": "150"}
+        ]
+      },
+      {
+        "type": "pipeline",
+        "id": "shopgate.user.addFavoriteData.v1",
+        "input": [
+          {"key": "products", "id": "130"}
+        ],
+        "output": []
+      },
+      {
+        "type": "pipeline",
+        "id": "shopgate.user.deleteCustomerFavorites.v1",
+        "input": [
+          {"key": "productIds", "id": "150"}
+        ],
+        "output": []
+      }
+    ]
+  }
+}

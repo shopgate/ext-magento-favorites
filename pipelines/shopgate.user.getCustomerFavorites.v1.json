@@ -1,0 +1,53 @@
+{
+  "version": "1",
+  "pipeline": {
+    "id": "shopgate.user.getCustomerFavorites.v1",
+    "public": true,
+    "input": [
+      {"key": "token", "id": "100"},
+      {"key": "wishlistId", "id": "110", "optional": true},
+      {"key": "sgxsMeta", "id": "10"}
+    ],
+    "steps": [
+      {
+        "type": "extension",
+        "id": "@shopgate/magento-favorites",
+        "path": "@shopgate/magento-favorites/lib/magento/customer/getWishlistId.js",
+        "input": [
+          {"key": "token", "id": "100"},
+          {"key": "wishlistId", "id": "110", "optional": true}
+        ],
+        "output": [
+          {"key": "wishlistId", "id": "110"}
+        ]
+      },
+      {
+        "id": "@shopgate/magento-favorites",
+        "path": "@shopgate/magento-favorites/lib/magento/customer/getItems.js",
+        "type": "extension",
+        "input": [
+          {"key": "token", "id": "100"},
+          {"key": "wishlistId", "id": "110"}
+        ],
+        "output": [
+          {"key": "productIds", "id": "120"}
+        ]
+      },
+      {
+        "type": "pipeline",
+        "id": "shopgate.user.mergeFavorites.v1",
+        "input": [
+          {"key": "sgxsMeta", "id": "10"},
+          {"key": "wishlistId", "id": "110"},
+          {"key": "mageProductIds", "id": "120"}
+        ],
+        "output": [
+          {"key": "productIds", "id": "150"}
+        ]
+      }
+    ],
+    "output": [
+      {"key": "productIds", "id": "150"}
+    ]
+  }
+}

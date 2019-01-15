@@ -1,0 +1,102 @@
+{
+  "id": "605017bd-48d6-4075-8058-48eae3c22d2c",
+  "values": [
+    {
+      "key": "port",
+      "value": "8090",
+      "description": "",
+      "enabled": true
+    },
+    {
+      "key": "domain",
+      "value": "http://localhost:{{port}}",
+      "description": "",
+      "enabled": true
+    },
+    {
+      "key": "endpoint_user_login",
+      "value": "/trustedPipelines/shopgate.user.loginUser.v1",
+      "enabled": true
+    },
+    {
+      "key": "endpoint_user_logout",
+      "value": "/trustedPipelines/shopgate.user.logoutUser.v1",
+      "description": "",
+      "enabled": true
+    },
+    {
+      "key": "endpoint_user_get",
+      "value": "/trustedPipelines/shopgate.user.getUser.v1",
+      "description": "",
+      "enabled": true
+    },
+    {
+      "key": "endpoint_user_addresses_get",
+      "value": "/trustedPipelines/shopgate.user.getAddresses.v1",
+      "description": "",
+      "enabled": true
+    },
+    {
+      "key": "endpoint_user_address_add",
+      "value": "/trustedPipelines/shopgate.user.addAddress.v1",
+      "enabled": true
+    },
+    {
+      "key": "endpoint_user_address_update",
+      "value": "/trustedPipelines/shopgate.user.updateAddress.v1",
+      "description": "",
+      "enabled": true
+    },
+    {
+      "key": "endpoint_user_addresses_delete",
+      "value": "/trustedPipelines/shopgate.user.deleteAddresses.v1",
+      "enabled": true
+    },
+    {
+      "key": "endpoint_user_password_update",
+      "value": "/trustedPipelines/shopgate.user.updatePassword.v1",
+      "description": "",
+      "enabled": true
+    },
+    {
+      "key": "endpoint_user_update",
+      "value": "/trustedPipelines/shopgate.user.updateUser.v1",
+      "description": "",
+      "enabled": true
+    },
+    {
+      "key": "endpoint_user_email_update",
+      "value": "/trustedPipelines/shopgate.user.updateMail.v1",
+      "description": "",
+      "enabled": true
+    },
+    {
+      "key": "endpoint_user_favorites_get",
+      "value": "/pipelines/shopgate.user.getFavorites.v1",
+      "description": "",
+      "enabled": true
+    },
+    {
+      "key": "endpoint_user_favorites_add",
+      "value": "/pipelines/shopgate.user.addFavorites.v1",
+      "description": "",
+      "enabled": true
+    },
+    {
+      "key": "endpoint_user_favorites_put",
+      "value": "/pipelines/shopgate.user.putFavorites.v1",
+      "description": "",
+      "enabled": true
+    },
+    {
+      "key": "endpoint_user_favorites_delete",
+      "value": "/pipelines/shopgate.user.deleteFavorites.v1",
+      "description": "",
+      "enabled": true
+    }
+  ],
+  "name": "SG Connect Extensions Globals",
+  "_postman_variable_scope": "globals",
+  "_postman_exported_at": "2018-10-05T13:47:14.948Z",
+  "_postman_exported_using": "Postman/6.3.0"
+}
